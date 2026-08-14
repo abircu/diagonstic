@@ -34,7 +34,9 @@ import { AdminDepartmentsPage } from "../admin/AdminDepartmentsPage";
 import { AdminTherapiesPage } from "../admin/AdminTherapiesPage";
 import { AdminProgramsPage } from "../admin/AdminProgramsPage";
 import { AdminFaqsPage } from "../admin/AdminFaqsPage";
+import { AdminVideosPage } from "../admin/AdminVideosPage";
 import { AdminSettingsPage } from "../admin/AdminSettingsPage";
+import { VideosPage } from "../pages/VideosPage";
 
 export function AppRouter() {
   return (
@@ -49,6 +51,7 @@ export function AppRouter() {
           <Route path="therapies" element={<AdminTherapiesPage />} />
           <Route path="programs" element={<AdminProgramsPage />} />
           <Route path="faqs" element={<AdminFaqsPage />} />
+          <Route path="videos" element={<AdminVideosPage />} />
           <Route path="settings" element={<AdminSettingsPage />} />
           <Route path="*" element={<p className="admin-page">Admin page not found.</p>} />
         </Route>
@@ -62,6 +65,7 @@ export function AppRouter() {
         <Route path="faq" element={<FaqPage />} />
         <Route path="team" element={<TeamPage />} />
         <Route path="gallery" element={<GalleryPage />} />
+        <Route path="videos" element={<VideosPage />} />
         <Route path="medical" element={<MedicalHubPage />} />
         <Route path="autism" element={<AutismHubPage />} />
         <Route path="doctors" element={<DoctorsPage />} />

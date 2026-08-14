@@ -4,6 +4,7 @@
 delete from public.ambulance_requests;
 delete from public.assessment_requests;
 delete from public.appointment_requests;
+delete from public.youtube_videos;
 delete from public.sliders;
 delete from public.gallery_items;
 delete from public.testimonials;

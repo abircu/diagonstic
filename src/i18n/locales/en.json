@@ -14,6 +14,7 @@
     "team": "Team",
     "faq": "FAQ",
     "gallery": "Gallery",
+    "videos": "Videos",
     "contact": "Contact",
     "packages": "Packages",
     "diagnostics": "Diagnostics",
@@ -158,6 +159,11 @@
     "sub": "Campus life, therapy sessions, and hospital spaces.",
     "photo": "Photo",
     "video": "Video"
+  },
+  "videos": {
+    "title": "Videos",
+    "sub": "Watch campus updates, therapy insights, and family stories.",
+    "empty": "No videos published yet."
   },
   "doctors": {
     "title": "Doctors & specialists",

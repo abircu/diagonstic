@@ -12,6 +12,7 @@ export type DiagnosticRow = Database["public"]["Tables"]["diagnostics"]["Row"];
 export type PackageRow = Database["public"]["Tables"]["packages"]["Row"];
 export type StatRow = Database["public"]["Tables"]["stats"]["Row"];
 export type SiteSettingsRow = Database["public"]["Tables"]["site_settings"]["Row"];
+export type YoutubeVideoRow = Database["public"]["Tables"]["youtube_videos"]["Row"];
 
 async function listPublished<T>(table: string) {
   const { data, error } = await supabase
@@ -105,6 +106,10 @@ export async function fetchPackages() {
 
 export async function fetchStats() {
   return listPublished<StatRow>("stats");
+}
+
+export async function fetchYoutubeVideos() {
+  return listPublished<YoutubeVideoRow>("youtube_videos");
 }
 
 export async function fetchSiteSettings() {

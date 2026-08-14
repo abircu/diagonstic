@@ -265,6 +265,25 @@ export type Database = {
         };
         Update: Partial<Database["public"]["Tables"]["gallery_items"]["Insert"]>;
       };
+      youtube_videos: {
+        Row: {
+          id: string;
+          title: Localized;
+          youtube_url: string;
+          sort_order: number;
+          published: boolean;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          title: Localized;
+          youtube_url: string;
+          sort_order?: number;
+          published?: boolean;
+          created_at?: string;
+        };
+        Update: Partial<Database["public"]["Tables"]["youtube_videos"]["Insert"]>;
+      };
       sliders: {
         Row: {
           id: string;

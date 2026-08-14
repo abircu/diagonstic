@@ -142,6 +142,15 @@ create table if not exists public.gallery_items (
   published boolean not null default true
 );
 
+create table if not exists public.youtube_videos (
+  id uuid primary key default gen_random_uuid(),
+  title jsonb not null default '{"en":"","bn":""}',
+  youtube_url text not null,
+  sort_order int not null default 0,
+  published boolean not null default true,
+  created_at timestamptz not null default now()
+);
+
 create table if not exists public.sliders (
   id uuid primary key default gen_random_uuid(),
   title jsonb,
@@ -248,6 +257,7 @@ alter table public.packages enable row level security;
 alter table public.faqs enable row level security;
 alter table public.testimonials enable row level security;
 alter table public.gallery_items enable row level security;
+alter table public.youtube_videos enable row level security;
 alter table public.sliders enable row level security;
 alter table public.stats enable row level security;
 alter table public.appointment_requests enable row level security;
@@ -272,6 +282,7 @@ create policy "packages_public_read" on public.packages for select using (publis
 create policy "faqs_public_read" on public.faqs for select using (published = true or public.is_admin());
 create policy "testimonials_public_read" on public.testimonials for select using (published = true or public.is_admin());
 create policy "gallery_public_read" on public.gallery_items for select using (published = true or public.is_admin());
+create policy "youtube_public_read" on public.youtube_videos for select using (published = true or public.is_admin());
 create policy "sliders_public_read" on public.sliders for select using (published = true or public.is_admin());
 create policy "stats_public_read" on public.stats for select using (published = true or public.is_admin());
 
@@ -287,6 +298,7 @@ create policy "packages_admin_write" on public.packages for all using (public.is
 create policy "faqs_admin_write" on public.faqs for all using (public.is_admin()) with check (public.is_admin());
 create policy "testimonials_admin_write" on public.testimonials for all using (public.is_admin()) with check (public.is_admin());
 create policy "gallery_admin_write" on public.gallery_items for all using (public.is_admin()) with check (public.is_admin());
+create policy "youtube_admin_write" on public.youtube_videos for all using (public.is_admin()) with check (public.is_admin());
 create policy "sliders_admin_write" on public.sliders for all using (public.is_admin()) with check (public.is_admin());
 create policy "stats_admin_write" on public.stats for all using (public.is_admin()) with check (public.is_admin());
 

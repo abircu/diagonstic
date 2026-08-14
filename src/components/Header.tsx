@@ -67,6 +67,7 @@ export function Header() {
               <NavLink to={link("/assessment")}>{t("nav.assessment")}</NavLink>
               <NavLink to={link("/team")}>{t("nav.team")}</NavLink>
               <NavLink to={link("/gallery")}>{t("nav.gallery")}</NavLink>
+              <NavLink to={link("/videos")}>{t("nav.videos")}</NavLink>
               <NavLink to={link("/faq")}>{t("nav.faq")}</NavLink>
               <NavLink to={link("/packages")}>{t("nav.packages")}</NavLink>
               <NavLink to={link("/diagnostics")}>{t("nav.diagnostics")}</NavLink>

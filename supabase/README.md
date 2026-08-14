@@ -60,10 +60,12 @@ where id = (select id from auth.users where email = 'YOUR_EMAIL@example.com');
 Run once in SQL Editor:
 
 1. [`migrations/public_booking_email.sql`](./migrations/public_booking_email.sql) — adds `email` columns + public insert / admin-only read
+2. [`migrations/youtube_videos.sql`](./migrations/youtube_videos.sql) — YouTube video CMS table
 
 Optional older migrations (`user_bookings.sql`, `role_user_default.sql`) are superseded for booking auth; public booking no longer needs `user_id`.
 
-In **Admin → Requests**, search by phone / email / name.
+In **Admin → Requests**, search by phone / email / name.  
+In **Admin → Videos**, paste YouTube links → public site `/en/videos`.
 
 ## 5. Verify from app
 
