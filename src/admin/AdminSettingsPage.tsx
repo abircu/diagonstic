@@ -1,20 +1,20 @@
 import { useEffect, useState, type FormEvent } from "react";
 import type { Database, Localized } from "../lib/database.types";
+import { useToast } from "../components/Toast";
 import { supabase } from "../lib/supabase";
 import { LocalizedInputs, asLocalized, emptyLocalized } from "./adminForm";
 
 type Settings = Database["public"]["Tables"]["site_settings"]["Row"];
 
 export function AdminSettingsPage() {
+  const toast = useToast();
   const [form, setForm] = useState<Partial<Settings> | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [ok, setOk] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
     (async () => {
       const { data, error: err } = await supabase.from("site_settings").select("*").eq("id", 1).maybeSingle();
-      if (err) setError(err.message);
+      if (err) toast.error(err.message);
       else if (data) {
         const row = data as Settings;
         setForm({
@@ -25,8 +25,8 @@ export function AdminSettingsPage() {
         });
       } else {
         setForm({
-          brand: "Daig Medical & Autism Care",
-          brand_short: "Daig",
+          brand: "Suborno physiotherapy and Autism Care",
+          brand_short: "Suborno",
           tagline: emptyLocalized(),
           phone_main: "",
           phone_main_display: "",
@@ -42,19 +42,17 @@ export function AdminSettingsPage() {
         });
       }
     })();
-  }, []);
+  }, [toast]);
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
     if (!form) return;
     setBusy(true);
-    setError(null);
-    setOk(null);
     const payload = { ...form, id: 1, updated_at: new Date().toISOString() };
     const { error: err } = await supabase.from("site_settings").upsert(payload as never);
     setBusy(false);
-    if (err) setError(err.message);
-    else setOk("Settings saved");
+    if (err) toast.error(err.message);
+    else toast.success("Settings saved");
   }
 
   if (!form) return <p>Loading settings…</p>;
@@ -137,8 +135,6 @@ export function AdminSettingsPage() {
           onChange={(hours) => setForm({ ...form, hours })}
           multiline
         />
-        {error ? <p className="admin-error">{error}</p> : null}
-        {ok ? <p className="admin-ok">{ok}</p> : null}
         <button className="btn btn-primary" type="submit" disabled={busy}>
           {busy ? "Saving…" : "Save settings"}
         </button>

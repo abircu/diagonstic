@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState, type FormEvent } from "react";
 import type { Database, Localized } from "../lib/database.types";
+import { useToast } from "../components/Toast";
 import { supabase } from "../lib/supabase";
 import { LocalizedInputs, asLocalized, emptyLocalized, slugify } from "./adminForm";
 
@@ -22,12 +23,11 @@ const blank = (): DoctorInput => ({
 type DeptOption = { slug: string; name: Localized };
 
 export function AdminDoctorsPage() {
+  const toast = useToast();
   const [rows, setRows] = useState<Doctor[]>([]);
   const [departments, setDepartments] = useState<DeptOption[]>([]);
   const [form, setForm] = useState<DoctorInput>(blank());
   const [editId, setEditId] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [ok, setOk] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
   const load = useCallback(async () => {
@@ -35,9 +35,9 @@ export function AdminDoctorsPage() {
       supabase.from("doctors").select("*").order("sort_order"),
       supabase.from("departments").select("slug, name").order("sort_order"),
     ]);
-    if (err) setError(err.message);
+    if (err) toast.error(err.message);
     else setRows((data ?? []) as Doctor[]);
-    if (depErr) setError(depErr.message);
+    if (depErr) toast.error(depErr.message);
     else setDepartments((deps ?? []) as DeptOption[]);
   }, []);
 
@@ -59,8 +59,6 @@ export function AdminDoctorsPage() {
       sort_order: row.sort_order,
       published: row.published,
     });
-    setOk(null);
-    setError(null);
   }
 
   function reset() {
@@ -71,8 +69,6 @@ export function AdminDoctorsPage() {
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
     setBusy(true);
-    setError(null);
-    setOk(null);
     const payload = {
       ...form,
       slug: form.slug || slugify(form.name.en),
@@ -85,10 +81,10 @@ export function AdminDoctorsPage() {
     const { error: err } = await q;
     setBusy(false);
     if (err) {
-      setError(err.message);
+      toast.error(err.message);
       return;
     }
-    setOk(editId ? "Updated" : "Created");
+    toast.success(editId ? "Updated" : "Created");
     reset();
     await load();
   }
@@ -96,8 +92,11 @@ export function AdminDoctorsPage() {
   async function remove(id: string) {
     if (!confirm("Delete this doctor?")) return;
     const { error: err } = await supabase.from("doctors").delete().eq("id", id);
-    if (err) setError(err.message);
-    else await load();
+    if (err) toast.error(err.message);
+    else {
+      toast.success("Deleted");
+      await load();
+    }
   }
 
   return (
@@ -172,8 +171,6 @@ export function AdminDoctorsPage() {
             </select>
           </label>
         </div>
-        {error ? <p className="admin-error">{error}</p> : null}
-        {ok ? <p className="admin-ok">{ok}</p> : null}
         <div className="admin-actions">
           <button className="btn btn-primary" type="submit" disabled={busy}>
             {busy ? "Saving…" : editId ? "Update doctor" : "Add doctor"}

@@ -8,17 +8,17 @@ export type Database = {
       profiles: {
         Row: {
           id: string;
-          role: "admin" | "editor" | "viewer";
+          role: "admin" | "editor" | "user";
           full_name: string | null;
           created_at: string;
         };
         Insert: {
           id: string;
-          role?: "admin" | "editor" | "viewer";
+          role?: "admin" | "editor" | "user";
           full_name?: string | null;
         };
         Update: {
-          role?: "admin" | "editor" | "viewer";
+          role?: "admin" | "editor" | "user";
           full_name?: string | null;
         };
       };
@@ -311,6 +311,7 @@ export type Database = {
           user_id: string | null;
           full_name: string;
           phone: string;
+          email: string | null;
           department_slug: string | null;
           doctor_slug: string | null;
           preferred_date: string | null;
@@ -322,6 +323,7 @@ export type Database = {
           user_id?: string | null;
           full_name: string;
           phone: string;
+          email?: string | null;
           department_slug?: string | null;
           doctor_slug?: string | null;
           preferred_date?: string | null;
@@ -336,6 +338,7 @@ export type Database = {
           user_id: string | null;
           parent_name: string;
           phone: string;
+          email: string | null;
           child_age: string;
           concerns: string;
           prior_diagnosis: string | null;
@@ -348,6 +351,7 @@ export type Database = {
           user_id?: string | null;
           parent_name: string;
           phone: string;
+          email?: string | null;
           child_age: string;
           concerns: string;
           prior_diagnosis?: string | null;
@@ -363,6 +367,7 @@ export type Database = {
           user_id: string | null;
           contact_name: string;
           phone: string;
+          email: string | null;
           pickup_location: string;
           notes: string | null;
           status: string;
@@ -372,6 +377,7 @@ export type Database = {
           user_id?: string | null;
           contact_name: string;
           phone: string;
+          email?: string | null;
           pickup_location: string;
           notes?: string | null;
           status?: string;

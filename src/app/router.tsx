@@ -23,10 +23,9 @@ import { ContactPage } from "../pages/ContactPage";
 import { FaqPage } from "../pages/FaqPage";
 import { TeamPage } from "../pages/TeamPage";
 import { GalleryPage } from "../pages/GalleryPage";
-import { LoginPage } from "../pages/LoginPage";
-import { MyBookingsPage } from "../pages/MyBookingsPage";
 import { NotFoundPage } from "../pages/NotFoundPage";
 import { AdminLayout } from "../admin/AdminLayout";
+import { AdminLoginPage } from "../admin/AdminLoginPage";
 import { RequireAdmin } from "../admin/RequireAdmin";
 import { AdminDashboardPage } from "../admin/AdminDashboardPage";
 import { AdminRequestsPage } from "../admin/AdminRequestsPage";
@@ -40,7 +39,7 @@ import { AdminSettingsPage } from "../admin/AdminSettingsPage";
 export function AppRouter() {
   return (
     <Routes>
-      <Route path="/admin/login" element={<Navigate to="/en/login?admin=1&next=/admin" replace />} />
+      <Route path="/admin/login" element={<AdminLoginPage />} />
       <Route path="/admin" element={<RequireAdmin />}>
         <Route element={<AdminLayout />}>
           <Route index element={<AdminDashboardPage />} />
@@ -58,8 +57,6 @@ export function AppRouter() {
       <Route path="/" element={<Navigate to="/en" replace />} />
       <Route path="/:lang" element={<Layout />}>
         <Route index element={<HomePage />} />
-        <Route path="login" element={<LoginPage />} />
-        <Route path="bookings" element={<MyBookingsPage />} />
         <Route path="about" element={<AboutPage />} />
         <Route path="contact" element={<ContactPage />} />
         <Route path="faq" element={<FaqPage />} />

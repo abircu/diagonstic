@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { useToast } from "../components/Toast";
 import { supabase } from "../lib/supabase";
 
 type Tab = "appointments" | "assessments" | "ambulances";
@@ -12,45 +13,57 @@ const tables: Record<Tab, string> = {
 };
 
 export function AdminRequestsPage() {
+  const toast = useToast();
   const [tab, setTab] = useState<Tab>("appointments");
   const [rows, setRows] = useState<AnyRow[]>([]);
-  const [error, setError] = useState<string | null>(null);
+  const [query, setQuery] = useState("");
   const [busyId, setBusyId] = useState<string | null>(null);
 
   const load = useCallback(async () => {
-    setError(null);
     const { data, error: err } = await supabase
       .from(tables[tab])
       .select("*")
       .order("created_at", { ascending: false })
-      .limit(100);
+      .limit(200);
     if (err) {
-      setError(err.message);
+      toast.error(err.message);
       setRows([]);
       return;
     }
     setRows((data ?? []) as AnyRow[]);
-  }, [tab]);
+  }, [tab, toast]);
 
   useEffect(() => {
     void load();
   }, [load]);
+
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return rows;
+    return rows.filter((r) => {
+      const phone = String(r.phone ?? "").toLowerCase();
+      const email = String(r.email ?? "").toLowerCase();
+      const name = String(r.full_name ?? r.parent_name ?? r.contact_name ?? "").toLowerCase();
+      return phone.includes(q) || email.includes(q) || name.includes(q);
+    });
+  }, [rows, query]);
 
   async function setStatus(id: string, status: string) {
     setBusyId(id);
     const { error: err } = await supabase.from(tables[tab]).update({ status } as never).eq("id", id);
     setBusyId(null);
     if (err) {
-      setError(err.message);
+      toast.error(err.message);
       return;
     }
+    toast.success(`Marked as ${status}`);
     await load();
   }
 
   return (
     <div className="admin-page">
       <h1>Requests</h1>
-      <p className="admin-lead">Inbox for appointment, assessment, and ambulance forms.</p>
+      <p className="admin-lead">Find bookings by phone or email. No user accounts — contact fields only.</p>
       <div className="admin-toolbar">
         {(["appointments", "assessments", "ambulances"] as Tab[]).map((t) => (
           <button key={t} type="button" className="admin-btn" onClick={() => setTab(t)} style={{ opacity: tab === t ? 1 : 0.6 }}>
@@ -58,11 +71,18 @@ export function AdminRequestsPage() {
           </button>
         ))}
         <span className="spacer" />
+        <input
+          className="admin-search"
+          type="search"
+          placeholder="Search phone / email / name"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          aria-label="Search requests"
+        />
         <button type="button" className="admin-btn" onClick={() => void load()}>
           Refresh
         </button>
       </div>
-      {error ? <p className="admin-error">{error}</p> : null}
       <div className="admin-table-wrap">
         <table className="admin-table">
           <thead>
@@ -70,22 +90,24 @@ export function AdminRequestsPage() {
               <th>When</th>
               <th>Name</th>
               <th>Phone</th>
+              <th>Email</th>
               <th>Details</th>
               <th>Status</th>
               <th />
             </tr>
           </thead>
           <tbody>
-            {rows.length === 0 ? (
+            {filtered.length === 0 ? (
               <tr>
-                <td colSpan={6}>No requests yet.</td>
+                <td colSpan={7}>{rows.length === 0 ? "No requests yet." : "No matches for this search."}</td>
               </tr>
             ) : (
-              rows.map((r) => (
+              filtered.map((r) => (
                 <tr key={r.id}>
                   <td>{new Date(r.created_at).toLocaleString()}</td>
                   <td>{String(r.full_name ?? r.parent_name ?? r.contact_name ?? "—")}</td>
                   <td>{String(r.phone ?? "—")}</td>
+                  <td>{String(r.email ?? "—")}</td>
                   <td>
                     {tab === "appointments" && (
                       <>

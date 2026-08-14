@@ -24,9 +24,9 @@
     "call": "Call"
   },
   "brand": {
-    "name": "Diagnostic Center , Medical Center & Autism Care",
-    "short": "Daigonstics",
-    "taglineSmall": "Medical & Autism Care"
+    "name": "Suborno physiotherapy and Autism Care",
+    "short": "Suborno",
+    "taglineSmall": "Physiotherapy & Autism Care"
   },
   "home": {
     "headline": "Care that grows with every patient and every child",
@@ -102,7 +102,10 @@
     "loading": "Loading…",
     "empty": "Nothing to show yet.",
     "required": "Required",
+    "formFix": "Please fix the highlighted fields",
+    "submitFailed": "Submit failed. Please try again.",
     "invalidPhone": "Enter a valid phone number",
+    "invalidEmail": "Enter a valid email",
     "successAppoint": "Appointment request received. We will confirm by phone.",
     "successAssess": "Assessment request received. Admissions will contact you soon.",
     "successAmbulance": "Ambulance request submitted. Our dispatch team will call you.",
@@ -113,8 +116,8 @@
     "hubBoth": "Medical & Autism"
   },
   "about": {
-    "title": "About Daig",
-    "sub": "A holistic campus for hospital medicine and autism care.",
+    "title": "About Suborno",
+    "sub": "A holistic campus for physiotherapy and autism care.",
     "missionTitle": "Mission",
     "mission": "Deliver evidence-based medical care and compassionate autism education so every family finds coordinated support.",
     "visionTitle": "Vision",
@@ -169,6 +172,7 @@
     "sub": "Share your details and preferred doctor. We will confirm by phone.",
     "name": "Full name",
     "phone": "Phone",
+    "email": "Email",
     "department": "Department",
     "doctor": "Doctor (optional)",
     "date": "Preferred date",
@@ -179,6 +183,7 @@
     "sub": "Emergency transport request — our team will call immediately.",
     "name": "Contact name",
     "phone": "Phone",
+    "email": "Email",
     "pickup": "Pickup location",
     "notes": "Patient condition / notes"
   },
@@ -222,6 +227,7 @@
     "sub": "Tell us about your child. Admissions will follow up with next steps.",
     "parentName": "Parent / guardian name",
     "phone": "Phone",
+    "email": "Email",
     "childAge": "Child age",
     "concerns": "Primary concerns",
     "diagnosis": "Prior diagnosis (if any)",
@@ -259,6 +265,8 @@
     "fullName": "Full name",
     "sub": "Create an account or log in to book and view your requests.",
     "failed": "Login failed",
+    "rateLimit": "Too many signup emails sent (Supabase limit ~2/hour). Wait 1 hour, or create the user in Supabase → Authentication → Users → Add user (Auto Confirm ON), then Login here.",
+    "signupTip": "If Sign up fails with rate limit: create the user in Supabase Dashboard (Add user + Auto Confirm), then use Login.",
     "checkEmail": "Check your email to confirm the account, then log in.",
     "adminHint": "Staff/admin?",
     "openAdmin": "Open admin panel"
@@ -271,7 +279,7 @@
     "ambulances": "Ambulance"
   },
   "seo": {
-    "homeTitle": "Daig Medical & Autism Care | Hospital & Autism School",
-    "homeDesc": "Combined hospital and autism school campus with doctors, therapy, programs, and admissions in Bangladesh."
+    "homeTitle": "Suborno physiotherapy and Autism Care | Physiotherapy & Autism",
+    "homeDesc": "Physiotherapy and autism care with therapy, programs, and admissions in Bangladesh."
   }
 }

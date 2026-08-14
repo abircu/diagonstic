@@ -1,21 +1,21 @@
 import { useState, type FormEvent } from "react";
-import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { PageHero } from "../components/PageHero";
-import { RequireAuth } from "../components/RequireAuth";
 import { Seo } from "../seo/Seo";
-import { useAuth } from "../lib/auth";
+import { useToast } from "../components/Toast";
 import { submitAssessment } from "../services/content";
-import { langPath, useLang } from "../hooks/useLang";
+import { useLang } from "../hooks/useLang";
 
 const phoneOk = (v: string) => /^[+0-9\s()-]{8,}$/.test(v.trim());
+const emailOk = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
 
-function AssessmentForm() {
+export function AssessmentPage() {
   const { t } = useTranslation();
   const lang = useLang();
-  const { user } = useAuth();
+  const toast = useToast();
   const [parentName, setParentName] = useState("");
   const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
   const [childAge, setChildAge] = useState("");
   const [concerns, setConcerns] = useState("");
   const [diagnosis, setDiagnosis] = useState("");
@@ -24,26 +24,28 @@ function AssessmentForm() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [done, setDone] = useState(false);
   const [sending, setSending] = useState(false);
-  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!user?.id) return;
     const next: Record<string, string> = {};
     if (!parentName.trim()) next.parentName = t("common.required");
     if (!phone.trim()) next.phone = t("common.required");
     else if (!phoneOk(phone)) next.phone = t("common.invalidPhone");
+    if (!email.trim()) next.email = t("common.required");
+    else if (!emailOk(email)) next.email = t("common.invalidEmail");
     if (!childAge.trim()) next.childAge = t("common.required");
     if (!concerns.trim()) next.concerns = t("common.required");
     setErrors(next);
-    setSubmitError(null);
-    if (Object.keys(next).length) return;
+    if (Object.keys(next).length) {
+      toast.error(t("common.formFix"));
+      return;
+    }
     setSending(true);
     try {
       await submitAssessment({
-        user_id: user.id,
         parent_name: parentName.trim(),
         phone: phone.trim(),
+        email: email.trim(),
         child_age: childAge.trim(),
         concerns: concerns.trim(),
         prior_diagnosis: diagnosis.trim() || undefined,
@@ -51,8 +53,9 @@ function AssessmentForm() {
         notes: notes.trim() || undefined,
       });
       setDone(true);
+      toast.success(t("common.successAssess"));
     } catch (err) {
-      setSubmitError(err instanceof Error ? err.message : "Submit failed");
+      toast.error(err instanceof Error ? err.message : t("common.submitFailed"));
     } finally {
       setSending(false);
     }
@@ -65,12 +68,7 @@ function AssessmentForm() {
       <section className="section">
         <div className="container">
           {done ? (
-            <div>
-              <p className="form-success">{t("common.successAssess")}</p>
-              <Link className="btn btn-secondary" to={langPath(lang, "/bookings")} style={{ marginTop: "1rem" }}>
-                {t("nav.bookings")}
-              </Link>
-            </div>
+            <p className="form-success">{t("common.successAssess")}</p>
           ) : (
             <form className="form-stack" onSubmit={onSubmit} noValidate>
               <div className="form-field">
@@ -82,6 +80,11 @@ function AssessmentForm() {
                 <label htmlFor="as-phone">{t("assessment.phone")}</label>
                 <input id="as-phone" value={phone} onChange={(e) => setPhone(e.target.value)} inputMode="tel" />
                 {errors.phone ? <p className="error">{errors.phone}</p> : null}
+              </div>
+              <div className="form-field">
+                <label htmlFor="as-email">{t("assessment.email")}</label>
+                <input id="as-email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" />
+                {errors.email ? <p className="error">{errors.email}</p> : null}
               </div>
               <div className="form-field">
                 <label htmlFor="as-age">{t("assessment.childAge")}</label>
@@ -109,7 +112,6 @@ function AssessmentForm() {
                 <label htmlFor="as-notes">{t("assessment.notes")}</label>
                 <textarea id="as-notes" value={notes} onChange={(e) => setNotes(e.target.value)} />
               </div>
-              {submitError ? <p className="error">{submitError}</p> : null}
               <button className="btn btn-primary" type="submit" disabled={sending}>
                 {sending ? t("common.sending") : t("common.submit")}
               </button>
@@ -118,13 +120,5 @@ function AssessmentForm() {
         </div>
       </section>
     </>
-  );
-}
-
-export function AssessmentPage() {
-  return (
-    <RequireAuth>
-      <AssessmentForm />
-    </RequireAuth>
   );
 }

@@ -1,4 +1,4 @@
-# Daig Medical & Autism Care
+# Suborno physiotherapy and Autism Care
 
 Vite + React TypeScript website combining hospital and autism school features.
 

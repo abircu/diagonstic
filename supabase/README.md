@@ -1,4 +1,4 @@
-# Supabase setup (Daig)
+# Supabase setup (Suborno)
 
 ## 1. Env (already created locally)
 
@@ -39,31 +39,33 @@ select id, 'admin', email from auth.users where email = 'YOUR_EMAIL@example.com'
 on conflict (id) do update set role = 'admin';
 ```
 
-## 4. User bookings (required once)
+## 4. Admin login only (no public user accounts)
 
-Run [`migrations/user_bookings.sql`](./migrations/user_bookings.sql) in SQL Editor so booking tables get `user_id` + user RLS.
+Booking forms are **public** — visitors submit **name + phone + email** (no login).
 
-Also disable **Confirm email** so users can sign up and use the site immediately:
+Admin opens this URL directly (not linked in the site header):
 
-Authentication → Providers → Email → **Confirm email** = OFF
+`/admin/login`
 
-One admin only: set role in SQL (users stay `viewer` by default).
-
-## 5. Admin panel
-
-Open site **Login** button, or: **http://localhost:5173/en/login?admin=1&next=/admin**
-
-Same login for users and admins. Admin role still set via SQL:
+Create admin in Auth → Users → Add user, then:
 
 ```sql
-insert into public.profiles (id, role, full_name)
-select id, 'admin', email from auth.users where email = 'YOUR_EMAIL@example.com'
-on conflict (id) do update set role = 'admin';
+update public.profiles
+set role = 'admin'
+where id = (select id from auth.users where email = 'YOUR_EMAIL@example.com');
 ```
 
-After login: users → **My bookings**; admins also see **Admin** link.
+### Migration (existing DB)
 
-## 6. Verify from app
+Run once in SQL Editor:
+
+1. [`migrations/public_booking_email.sql`](./migrations/public_booking_email.sql) — adds `email` columns + public insert / admin-only read
+
+Optional older migrations (`user_bookings.sql`, `role_user_default.sql`) are superseded for booking auth; public booking no longer needs `user_id`.
+
+In **Admin → Requests**, search by phone / email / name.
+
+## 5. Verify from app
 
 ```ts
 import { testSupabaseConnection } from "./services/content";

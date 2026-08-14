@@ -11,7 +11,7 @@ export function Header() {
   const lang = useLang();
   const location = useLocation();
   const navigate = useNavigate();
-  const { session, isAdmin, signOut, loading } = useAuth();
+  const { isAdmin, signOut, loading } = useAuth();
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -39,7 +39,7 @@ export function Header() {
       <div className="container header-inner">
         <Link to={link("/")} className="brand" aria-label={t("brand.name")}>
           <span className="brand-mark" aria-hidden>
-            D
+            S
           </span>
           <span className="brand-text">
             <strong>{t("brand.short")}</strong>
@@ -72,23 +72,17 @@ export function Header() {
               <NavLink to={link("/diagnostics")}>{t("nav.diagnostics")}</NavLink>
               <NavLink to={link("/ambulance")}>{t("nav.ambulance")}</NavLink>
               <NavLink to={link("/activities")}>{t("nav.activities")}</NavLink>
-              <NavLink to={link("/bookings")}>{t("nav.bookings")}</NavLink>
             </div>
           </div>
 
-          <div className="nav-auth-mobile">
-            {!loading && session ? (
-              <>
-                <NavLink to={link("/bookings")}>{t("nav.bookings")}</NavLink>
-                {isAdmin ? <Link to="/admin">{t("auth.admin")}</Link> : null}
-                <button type="button" className="nav-auth-logout" onClick={() => void onLogout()}>
-                  {t("auth.logout")}
-                </button>
-              </>
-            ) : (
-              <NavLink to={link("/login")}>{t("auth.login")}</NavLink>
-            )}
-          </div>
+          {!loading && isAdmin ? (
+            <div className="nav-auth-mobile">
+              <Link to="/admin">{t("auth.admin")}</Link>
+              <button type="button" className="nav-auth-logout" onClick={() => void onLogout()}>
+                {t("auth.logout")}
+              </button>
+            </div>
+          ) : null}
         </nav>
 
         <div className="header-actions">
@@ -104,27 +98,16 @@ export function Header() {
             <span />
             <span />
           </button>
-          <div className="header-auth-desktop">
-            {!loading && session ? (
-              <>
-                <Link className="header-auth-link" to={link("/bookings")}>
-                  {t("nav.bookings")}
-                </Link>
-                {isAdmin ? (
-                  <Link className="header-auth-link" to="/admin">
-                    {t("auth.admin")}
-                  </Link>
-                ) : null}
-                <button type="button" className="header-auth-btn" onClick={() => void onLogout()}>
-                  {t("auth.logout")}
-                </button>
-              </>
-            ) : (
-              <Link className="header-auth-btn header-auth-btn--solid" to={link("/login")}>
-                {t("auth.login")}
+          {!loading && isAdmin ? (
+            <div className="header-auth-desktop">
+              <Link className="header-auth-link" to="/admin">
+                {t("auth.admin")}
               </Link>
-            )}
-          </div>
+              <button type="button" className="header-auth-btn" onClick={() => void onLogout()}>
+                {t("auth.logout")}
+              </button>
+            </div>
+          ) : null}
           <label className="lang-select-wrap">
             <span className="sr-only">Language</span>
             <select

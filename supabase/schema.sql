@@ -1,4 +1,4 @@
--- Daig Medical & Autism Care — Supabase schema
+-- Suborno physiotherapy and Autism Care — Supabase schema
 -- Run in: Supabase Dashboard → SQL Editor → New query → Run
 
 create extension if not exists "pgcrypto";
@@ -6,7 +6,7 @@ create extension if not exists "pgcrypto";
 -- Profiles (admin roles)
 create table if not exists public.profiles (
   id uuid primary key references auth.users (id) on delete cascade,
-  role text not null default 'viewer' check (role in ('admin', 'editor', 'viewer')),
+  role text not null default 'user' check (role in ('admin', 'editor', 'user')),
   full_name text,
   created_at timestamptz not null default now()
 );
@@ -166,6 +166,7 @@ create table if not exists public.appointment_requests (
   user_id uuid references auth.users (id) on delete set null,
   full_name text not null,
   phone text not null,
+  email text,
   department_slug text,
   doctor_slug text,
   preferred_date date,
@@ -179,6 +180,7 @@ create table if not exists public.assessment_requests (
   user_id uuid references auth.users (id) on delete set null,
   parent_name text not null,
   phone text not null,
+  email text,
   child_age text not null,
   concerns text not null,
   prior_diagnosis text,
@@ -193,6 +195,7 @@ create table if not exists public.ambulance_requests (
   user_id uuid references auth.users (id) on delete set null,
   contact_name text not null,
   phone text not null,
+  email text,
   pickup_location text not null,
   notes text,
   status text not null default 'new',
@@ -208,7 +211,7 @@ set search_path = public
 as $$
 begin
   insert into public.profiles (id, role, full_name)
-  values (new.id, 'viewer', coalesce(new.raw_user_meta_data->>'full_name', new.email))
+  values (new.id, 'user', coalesce(new.raw_user_meta_data->>'full_name', new.email))
   on conflict (id) do nothing;
   return new;
 end;
@@ -287,21 +290,21 @@ create policy "gallery_admin_write" on public.gallery_items for all using (publi
 create policy "sliders_admin_write" on public.sliders for all using (public.is_admin()) with check (public.is_admin());
 create policy "stats_admin_write" on public.stats for all using (public.is_admin()) with check (public.is_admin());
 
--- Authenticated users insert/read own requests; admin read/update all
-create policy "appointments_user_insert" on public.appointment_requests
-  for insert with check (auth.uid() is not null and user_id = auth.uid());
-create policy "appointments_user_or_admin_read" on public.appointment_requests
-  for select using (public.is_admin() or user_id = auth.uid());
+-- Public can submit requests (phone + email); only admin can read/update
+create policy "appointments_public_insert" on public.appointment_requests
+  for insert with check (true);
+create policy "appointments_admin_read" on public.appointment_requests
+  for select using (public.is_admin());
 create policy "appointments_admin_update" on public.appointment_requests for update using (public.is_admin());
 
-create policy "assessments_user_insert" on public.assessment_requests
-  for insert with check (auth.uid() is not null and user_id = auth.uid());
-create policy "assessments_user_or_admin_read" on public.assessment_requests
-  for select using (public.is_admin() or user_id = auth.uid());
+create policy "assessments_public_insert" on public.assessment_requests
+  for insert with check (true);
+create policy "assessments_admin_read" on public.assessment_requests
+  for select using (public.is_admin());
 create policy "assessments_admin_update" on public.assessment_requests for update using (public.is_admin());
 
-create policy "ambulance_user_insert" on public.ambulance_requests
-  for insert with check (auth.uid() is not null and user_id = auth.uid());
-create policy "ambulance_user_or_admin_read" on public.ambulance_requests
-  for select using (public.is_admin() or user_id = auth.uid());
+create policy "ambulance_public_insert" on public.ambulance_requests
+  for insert with check (true);
+create policy "ambulance_admin_read" on public.ambulance_requests
+  for select using (public.is_admin());
 create policy "ambulance_admin_update" on public.ambulance_requests for update using (public.is_admin());

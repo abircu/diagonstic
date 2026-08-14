@@ -25,9 +25,9 @@ insert into public.site_settings (
   address, hours, social
 ) values (
   1,
-  'Daig Medical & Autism Care',
-  'Daig',
-  '{"en":"Hospital care and autism support under one roof","bn":"এক ছাদের নিচে হাসপাতাল সেবা ও অটিজম সহায়তা"}'::jsonb,
+  'Suborno physiotherapy and Autism Care',
+  'Suborno',
+  '{"en":"Physiotherapy and autism care under one roof","bn":"এক ছাদের নিচে ফিজিওথেরাপি ও অটিজম কেয়ার"}'::jsonb,
   '+8801615335292',
   '+880 1615 335 292',
   '+8809677602660',

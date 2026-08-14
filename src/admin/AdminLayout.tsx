@@ -21,7 +21,7 @@ export function AdminLayout() {
     <div className="admin-shell">
       <aside className="admin-sidebar">
         <div className="admin-brand">
-          <strong>Daig Admin</strong>
+          <strong>Suborno Admin</strong>
           <small>{profile?.full_name || user?.email}</small>
         </div>
         <nav className="admin-nav">

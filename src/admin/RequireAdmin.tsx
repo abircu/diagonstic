@@ -15,7 +15,7 @@ export function RequireAdmin() {
 
   if (!session) {
     const next = encodeURIComponent(location.pathname || "/admin");
-    return <Navigate to={`/en/login?admin=1&next=${next}`} replace />;
+    return <Navigate to={`/admin/login?next=${next}`} replace />;
   }
 
   if (!isAdmin) {

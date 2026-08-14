@@ -1,32 +1,43 @@
 import { useState, type FormEvent } from "react";
-import { Navigate, useLocation } from "react-router-dom";
+import { Link, Navigate, useSearchParams } from "react-router-dom";
+import { useToast } from "../components/Toast";
 import { useAuth } from "../lib/auth";
+import "./admin.css";
 
 export function AdminLoginPage() {
   const { signIn, session, isAdmin, loading } = useAuth();
-  const location = useLocation();
-  const from = (location.state as { from?: string } | null)?.from || "/admin";
+  const toast = useToast();
+  const [params] = useSearchParams();
+  const nextRaw = params.get("next") || "/admin";
+  const next = nextRaw.startsWith("/admin") ? nextRaw : "/admin";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
   if (!loading && session && isAdmin) {
-    return <Navigate to={from} replace />;
+    return <Navigate to={next} replace />;
+  }
+
+  if (!loading && session && !isAdmin) {
+    return (
+      <div className="admin-loading">
+        <h1>Access denied</h1>
+        <p>This account is not an admin. Use an admin profile, or set role to admin in Supabase.</p>
+        <p>
+          <Link to="/en">Back to site</Link>
+        </p>
+      </div>
+    );
   }
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
     setBusy(true);
-    setError(null);
     try {
-      const profile = await signIn(email.trim(), password);
-      const role = profile?.role;
-      if (role !== "admin" && role !== "editor") {
-        setError("Signed in, but this account is not an admin. Set role in Supabase profiles.");
-      }
+      await signIn(email.trim(), password);
+      toast.success("Signed in");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Login failed");
+      toast.error(err instanceof Error ? err.message : "Login failed");
     } finally {
       setBusy(false);
     }
@@ -34,28 +45,41 @@ export function AdminLoginPage() {
 
   return (
     <div className="admin-login">
-      <form className="admin-login-card" onSubmit={onSubmit}>
+      <div className="admin-login-card">
         <h1>Admin login</h1>
-        <p className="admin-lead">Sign in with your Supabase Auth account.</p>
-        <label>
-          Email
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required autoComplete="username" />
-        </label>
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            autoComplete="current-password"
-          />
-        </label>
-        {error ? <p className="admin-error">{error}</p> : null}
-        <button className="btn btn-primary" type="submit" disabled={busy || loading} style={{ width: "100%", marginTop: "0.5rem" }}>
-          {busy || loading ? "Signing in…" : "Sign in"}
-        </button>
-      </form>
+        <p className="admin-lead">Staff only. There is no public login on the site.</p>
+        <form className="admin-form" onSubmit={onSubmit}>
+          <label htmlFor="admin-email">
+            Email
+            <input
+              id="admin-email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              autoComplete="username"
+            />
+          </label>
+          <label htmlFor="admin-password">
+            Password
+            <input
+              id="admin-password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              minLength={6}
+              autoComplete="current-password"
+            />
+          </label>
+          <button className="admin-btn" type="submit" disabled={busy || loading}>
+            {busy || loading ? "Signing in…" : "Sign in"}
+          </button>
+        </form>
+        <p style={{ marginTop: "1.25rem" }}>
+          <Link to="/en">← Public site</Link>
+        </p>
+      </div>
     </div>
   );
 }

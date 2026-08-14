@@ -114,9 +114,9 @@ export async function fetchSiteSettings() {
 }
 
 export async function submitAppointment(input: {
-  user_id: string;
   full_name: string;
   phone: string;
+  email: string;
   department_slug?: string;
   doctor_slug?: string;
   preferred_date?: string;
@@ -127,9 +127,9 @@ export async function submitAppointment(input: {
 }
 
 export async function submitAssessment(input: {
-  user_id: string;
   parent_name: string;
   phone: string;
+  email: string;
   child_age: string;
   concerns: string;
   prior_diagnosis?: string;
@@ -141,44 +141,14 @@ export async function submitAssessment(input: {
 }
 
 export async function submitAmbulance(input: {
-  user_id: string;
   contact_name: string;
   phone: string;
+  email: string;
   pickup_location: string;
   notes?: string;
 }) {
   const { error } = await supabase.from("ambulance_requests").insert(input as never);
   if (error) throw error;
-}
-
-export async function fetchMyAppointments(userId: string) {
-  const { data, error } = await supabase
-    .from("appointment_requests")
-    .select("*")
-    .eq("user_id", userId)
-    .order("created_at", { ascending: false });
-  if (error) throw error;
-  return (data ?? []) as Database["public"]["Tables"]["appointment_requests"]["Row"][];
-}
-
-export async function fetchMyAssessments(userId: string) {
-  const { data, error } = await supabase
-    .from("assessment_requests")
-    .select("*")
-    .eq("user_id", userId)
-    .order("created_at", { ascending: false });
-  if (error) throw error;
-  return (data ?? []) as Database["public"]["Tables"]["assessment_requests"]["Row"][];
-}
-
-export async function fetchMyAmbulances(userId: string) {
-  const { data, error } = await supabase
-    .from("ambulance_requests")
-    .select("*")
-    .eq("user_id", userId)
-    .order("created_at", { ascending: false });
-  if (error) throw error;
-  return (data ?? []) as Database["public"]["Tables"]["ambulance_requests"]["Row"][];
 }
 
 export function asLocalized(value: unknown): Localized {

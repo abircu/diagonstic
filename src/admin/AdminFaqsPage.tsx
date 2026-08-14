@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState, type FormEvent } from "react";
 import type { Database, Localized } from "../lib/database.types";
+import { useToast } from "../components/Toast";
 import { supabase } from "../lib/supabase";
 import { LocalizedInputs, asLocalized, emptyLocalized, slugify } from "./adminForm";
 
@@ -16,15 +17,15 @@ const blank = (): Input => ({
 });
 
 export function AdminFaqsPage() {
+  const toast = useToast();
   const [rows, setRows] = useState<Row[]>([]);
   const [form, setForm] = useState<Input>(blank());
   const [editId, setEditId] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
   const load = useCallback(async () => {
     const { data, error: err } = await supabase.from("faqs").select("*").order("sort_order");
-    if (err) setError(err.message);
+    if (err) toast.error(err.message);
     else setRows((data ?? []) as Row[]);
   }, []);
 
@@ -52,7 +53,6 @@ export function AdminFaqsPage() {
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
     setBusy(true);
-    setError(null);
     const id = form.id || slugify(form.question.en);
     const payload = { ...form, id };
     const q = editId
@@ -61,9 +61,10 @@ export function AdminFaqsPage() {
     const { error: err } = await q;
     setBusy(false);
     if (err) {
-      setError(err.message);
+      toast.error(err.message);
       return;
     }
+    toast.success(editId ? "Updated" : "Created");
     reset();
     await load();
   }
@@ -71,8 +72,11 @@ export function AdminFaqsPage() {
   async function remove(id: string) {
     if (!confirm("Delete this FAQ?")) return;
     const { error: err } = await supabase.from("faqs").delete().eq("id", id);
-    if (err) setError(err.message);
-    else await load();
+    if (err) toast.error(err.message);
+    else {
+      toast.success("Deleted");
+      await load();
+    }
   }
 
   return (
@@ -109,7 +113,6 @@ export function AdminFaqsPage() {
             </select>
           </label>
         </div>
-        {error ? <p className="admin-error">{error}</p> : null}
         <div className="admin-actions">
           <button className="btn btn-primary" type="submit" disabled={busy}>
             {editId ? "Update" : "Add"} FAQ

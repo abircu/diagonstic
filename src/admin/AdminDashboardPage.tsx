@@ -16,6 +16,7 @@ import {
   YAxis,
 } from "recharts";
 import { supabase } from "../lib/supabase";
+import { useToast } from "../components/Toast";
 
 type Counts = {
   doctors: number;
@@ -65,9 +66,9 @@ function lastNDays(n: number) {
 }
 
 export function AdminDashboardPage() {
+  const toast = useToast();
   const [counts, setCounts] = useState<Counts | null>(null);
   const [requests, setRequests] = useState<RequestRow[]>([]);
-  const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -150,10 +151,9 @@ export function AdminDashboardPage() {
         if (!cancelled) {
           setCounts({ doctors, departments, therapies, programs, faqs, appointments, assessments, ambulances });
           setRequests(merged);
-          setError(null);
         }
       } catch (err) {
-        if (!cancelled) setError(err instanceof Error ? err.message : "Failed to load");
+        if (!cancelled) toast.error(err instanceof Error ? err.message : "Failed to load");
       } finally {
         if (!cancelled) setLoading(false);
       }
@@ -229,7 +229,6 @@ export function AdminDashboardPage() {
         </div>
       </div>
 
-      {error ? <p className="admin-error">{error}</p> : null}
       {loading || !counts ? (
         <p className="empty-note">Loading dashboard…</p>
       ) : (

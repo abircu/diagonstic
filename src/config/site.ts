@@ -1,9 +1,9 @@
 export const siteConfig = {
-  brand: "Daig Medical & Autism Care",
-  brandShort: "Daig",
+  brand: "Suborno physiotherapy and Autism Care",
+  brandShort: "Suborno",
   tagline: {
-    en: "Hospital care and autism support under one roof",
-    bn: "এক ছাদের নিচে হাসপাতাল সেবা ও অটিজম সহায়তা",
+    en: "Physiotherapy and autism care under one roof",
+    bn: "এক ছাদের নিচে ফিজিওথেরাপি ও অটিজম কেয়ার",
   },
   url: "https://daig.example.com",
   phones: {
