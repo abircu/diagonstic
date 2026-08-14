@@ -1,0 +1,32 @@
+.faq-list {
+  max-width: 44rem;
+  display: grid;
+  gap: var(--space-3);
+}
+
+.faq-item {
+  background: white;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.faq-item button {
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  padding: var(--space-4);
+  font-weight: 700;
+  color: var(--color-heading);
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  overflow-wrap: anywhere;
+}
+
+.faq-item p {
+  margin: 0;
+  padding: 0 var(--space-4) var(--space-4);
+  color: var(--color-muted);
+}

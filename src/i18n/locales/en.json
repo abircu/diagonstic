@@ -1,0 +1,277 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "medical": "Medical",
+    "autism": "Autism Care",
+    "doctors": "Doctors",
+    "departments": "Departments",
+    "appointment": "Appointment",
+    "therapy": "Therapy",
+    "programs": "Programs",
+    "admissions": "Admissions",
+    "assessment": "Assessment",
+    "team": "Team",
+    "faq": "FAQ",
+    "gallery": "Gallery",
+    "contact": "Contact",
+    "packages": "Packages",
+    "diagnostics": "Diagnostics",
+    "ambulance": "Ambulance",
+    "activities": "Activities",
+    "bookings": "My bookings",
+    "more": "More",
+    "call": "Call"
+  },
+  "brand": {
+    "name": "Diagnostic Center , Medical Center & Autism Care",
+    "short": "Daigonstics",
+    "taglineSmall": "Medical & Autism Care"
+  },
+  "home": {
+    "headline": "Care that grows with every patient and every child",
+    "sub": "Hospital medicine and autism therapy under one coordinated campus.",
+    "ctaAppoint": "Book Doctor Appointment",
+    "ctaAssess": "Book Child Assessment",
+    "hubsTitle": "Two hubs. One care pathway.",
+    "hubsSub": "Choose medical care or autism school support — or move between both when your family needs it.",
+    "medicalHub": "Medical Center",
+    "medicalHubText": "Doctors, departments, diagnostics, packages, and emergency support.",
+    "autismHub": "Autism School & Therapy",
+    "autismHubText": "ABA, speech, OT, special education, and family-guided admissions.",
+    "featuredMedical": "Featured specialties",
+    "featuredTherapy": "Featured therapies",
+    "pathwayTitle": "How we work together",
+    "pathwaySub": "Clinical care, learning, and family support planned as one journey.",
+    "step1": "Listen & assess",
+    "step1Text": "Medical consult or child assessment to understand needs.",
+    "step2": "Build one plan",
+    "step2Text": "Doctors, therapists, and educators align goals and schedules.",
+    "step3": "Support daily progress",
+    "step3Text": "Appointments, therapy sessions, and parent reviews stay connected.",
+    "testimonials": "Families & patients say",
+    "finalCta": "Start with a call or a booking",
+    "finalCtaText": "Our team will guide you to the right hub — medical or autism care."
+  },
+  "stats": {
+    "doctors": "Doctors & specialists",
+    "departments": "Departments",
+    "children": "Children supported",
+    "therapists": "Therapists"
+  },
+  "medical": {
+    "title": "Medical Center",
+    "sub": "World-class hospital care with affordable, coordinated services.",
+    "ctaDoctors": "Find a doctor",
+    "ctaAppoint": "Book appointment",
+    "deptsTitle": "Departments",
+    "specialtiesTitle": "Special centers",
+    "diagnosticsTitle": "Diagnostic services",
+    "packagesTitle": "Health check-up packages",
+    "servicesTitle": "Patient services"
+  },
+  "autism": {
+    "title": "Autism School & Therapy",
+    "sub": "Personalized therapy and education so every child can grow at their pace.",
+    "pathwayTitle": "One child, one coordinated pathway",
+    "pathA": "Clinical & therapy support",
+    "pathB": "Learning & academic programs",
+    "pathC": "Social development & activities",
+    "ctaTherapy": "Explore therapies",
+    "ctaPrograms": "Explore programs",
+    "ctaAdmissions": "Admissions guide"
+  },
+  "common": {
+    "readMore": "Read more",
+    "viewAll": "View all",
+    "back": "Back",
+    "home": "Home",
+    "search": "Search",
+    "filter": "Filter by department",
+    "all": "All",
+    "schedule": "Schedule",
+    "bookWith": "Book with this doctor",
+    "related": "Related",
+    "what": "What it is",
+    "how": "How we deliver",
+    "benefits": "Benefits",
+    "offer": "What we offer",
+    "why": "Why it matters",
+    "submit": "Submit",
+    "sending": "Sending…",
+    "loading": "Loading…",
+    "empty": "Nothing to show yet.",
+    "required": "Required",
+    "invalidPhone": "Enter a valid phone number",
+    "successAppoint": "Appointment request received. We will confirm by phone.",
+    "successAssess": "Assessment request received. Admissions will contact you soon.",
+    "successAmbulance": "Ambulance request submitted. Our dispatch team will call you.",
+    "notFound": "Page not found",
+    "notFoundText": "The page you requested is unavailable.",
+    "hubMedical": "Medical",
+    "hubAutism": "Autism",
+    "hubBoth": "Medical & Autism"
+  },
+  "about": {
+    "title": "About Daig",
+    "sub": "A holistic campus for hospital medicine and autism care.",
+    "missionTitle": "Mission",
+    "mission": "Deliver evidence-based medical care and compassionate autism education so every family finds coordinated support.",
+    "visionTitle": "Vision",
+    "vision": "A trusted regional campus where clinical excellence and special education grow together.",
+    "valuesTitle": "Values",
+    "values": "Dignity, safety, measurable progress, and family partnership.",
+    "timelineTitle": "Our journey",
+    "t1": "Campus foundation & hospital services begin",
+    "t2": "Autism therapy wing opens with ABA & speech",
+    "t3": "Integrated IEP + medical referral pathways",
+    "t4": "Expanded diagnostics, packages, and outreach"
+  },
+  "contact": {
+    "title": "Contact",
+    "sub": "Reach medical, admissions, or visit our campus.",
+    "hotlines": "Hotlines",
+    "medicalLine": "Medical",
+    "admissionLine": "Admissions",
+    "mainLine": "Main",
+    "email": "Email",
+    "address": "Address",
+    "hours": "Hours",
+    "map": "Campus map"
+  },
+  "faq": {
+    "title": "FAQ",
+    "sub": "Answers about admissions, therapy, medical visits, and safety."
+  },
+  "team": {
+    "title": "Our team",
+    "sub": "Doctors and therapists working across both hubs.",
+    "filterAll": "All",
+    "filterMedical": "Medical",
+    "filterAutism": "Autism"
+  },
+  "gallery": {
+    "title": "Gallery",
+    "sub": "Campus life, therapy sessions, and hospital spaces.",
+    "photo": "Photo",
+    "video": "Video"
+  },
+  "doctors": {
+    "title": "Doctors & specialists",
+    "sub": "Find the right clinician for your needs."
+  },
+  "departments": {
+    "title": "Departments",
+    "sub": "Medicine, surgery, women’s health, diagnostics, and dental care."
+  },
+  "appointment": {
+    "title": "Book an appointment",
+    "sub": "Share your details and preferred doctor. We will confirm by phone.",
+    "name": "Full name",
+    "phone": "Phone",
+    "department": "Department",
+    "doctor": "Doctor (optional)",
+    "date": "Preferred date",
+    "notes": "Notes"
+  },
+  "ambulance": {
+    "title": "Book an ambulance",
+    "sub": "Emergency transport request — our team will call immediately.",
+    "name": "Contact name",
+    "phone": "Phone",
+    "pickup": "Pickup location",
+    "notes": "Patient condition / notes"
+  },
+  "packages": {
+    "title": "Health check-up packages",
+    "sub": "Packages designed for early detection and peace of mind.",
+    "includes": "Includes"
+  },
+  "diagnostics": {
+    "title": "Diagnostic services",
+    "sub": "MRI, CT, X-ray, ultrasound, and mammography."
+  },
+  "therapy": {
+    "title": "Therapy services",
+    "sub": "Expert therapy tailored to each child’s strengths and pace."
+  },
+  "programs": {
+    "title": "Learning programs",
+    "sub": "Structured support from early intervention to vocational training."
+  },
+  "admissions": {
+    "title": "Admissions",
+    "sub": "From inquiry to personalized placement.",
+    "whoTitle": "Who can apply",
+    "who": "Children with autism or developmental delays. Admission is based on assessment needs.",
+    "stepsTitle": "Enrollment steps",
+    "s1": "Inquiry & campus visit",
+    "s2": "Clinical assessment",
+    "s3": "Recommendations shared",
+    "s4": "IEP & placement plan",
+    "s5": "Enrollment & first sessions",
+    "docsTitle": "Documents checklist",
+    "d1": "Child photos",
+    "d2": "Birth certificate",
+    "d3": "Prior medical / diagnostic reports",
+    "d4": "Parent NID copies",
+    "cta": "Book an assessment"
+  },
+  "assessment": {
+    "title": "Book a child assessment",
+    "sub": "Tell us about your child. Admissions will follow up with next steps.",
+    "parentName": "Parent / guardian name",
+    "phone": "Phone",
+    "childAge": "Child age",
+    "concerns": "Primary concerns",
+    "diagnosis": "Prior diagnosis (if any)",
+    "shift": "Preferred shift",
+    "shiftMorning": "Morning",
+    "shiftAfternoon": "Afternoon",
+    "shiftEvening": "Evening",
+    "notes": "Additional notes"
+  },
+  "activities": {
+    "title": "Activities",
+    "sub": "Beyond therapy — dance, art, swimming, games, and community outings.",
+    "items": {
+      "dance": "Dance & music",
+      "art": "Creative arts",
+      "hydro": "Hydrotherapy / swimming",
+      "yoga": "Yoga & focus",
+      "play": "Indoor & outdoor play",
+      "outings": "Community outings"
+    }
+  },
+  "footer": {
+    "quick": "Quick links",
+    "contact": "Contact",
+    "location": "Location",
+    "rights": "All rights reserved."
+  },
+  "auth": {
+    "login": "Login",
+    "signup": "Sign up",
+    "logout": "Logout",
+    "admin": "Admin",
+    "email": "Email",
+    "password": "Password",
+    "fullName": "Full name",
+    "sub": "Create an account or log in to book and view your requests.",
+    "failed": "Login failed",
+    "checkEmail": "Check your email to confirm the account, then log in.",
+    "adminHint": "Staff/admin?",
+    "openAdmin": "Open admin panel"
+  },
+  "bookings": {
+    "title": "My bookings",
+    "sub": "Your appointment, assessment, and ambulance requests.",
+    "appointments": "Appointments",
+    "assessments": "Assessments",
+    "ambulances": "Ambulance"
+  },
+  "seo": {
+    "homeTitle": "Daig Medical & Autism Care | Hospital & Autism School",
+    "homeDesc": "Combined hospital and autism school campus with doctors, therapy, programs, and admissions in Bangladesh."
+  }
+}

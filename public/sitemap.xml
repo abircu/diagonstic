@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://daig.example.com/en</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/about</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/about" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/about" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/contact</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/contact" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/contact" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/faq</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/faq" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/faq" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/team</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/team" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/team" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/gallery</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/gallery" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/gallery" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/medical</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/medical" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/medical" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/autism</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/autism" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/autism" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/doctors</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/doctors" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/doctors" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/departments</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/departments" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/departments" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/appointment</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/appointment" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/appointment" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/ambulance</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/ambulance" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/ambulance" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/packages</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/packages" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/packages" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/diagnostics</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/diagnostics" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/diagnostics" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/therapy</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/therapy" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/therapy" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/programs</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/programs" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/programs" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/admissions</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/admissions" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/admissions" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/assessment</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/assessment" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/assessment" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/activities</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/activities" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/activities" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/doctors/dr-rahman</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/doctors/dr-rahman" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/doctors/dr-rahman" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/doctors/dr-karim</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/doctors/dr-karim" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/doctors/dr-karim" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/doctors/dr-sultana</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/doctors/dr-sultana" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/doctors/dr-sultana" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/doctors/dr-hossain</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/doctors/dr-hossain" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/doctors/dr-hossain" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/doctors/ms-jahan</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/doctors/ms-jahan" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/doctors/ms-jahan" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/doctors/ms-akhtar</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/doctors/ms-akhtar" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/doctors/ms-akhtar" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/departments/cardiology</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/departments/cardiology" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/departments/cardiology" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/departments/pediatrics</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/departments/pediatrics" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/departments/pediatrics" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/departments/neurology</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/departments/neurology" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/departments/neurology" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/departments/psychiatry</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/departments/psychiatry" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/departments/psychiatry" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/departments/orthopedics</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/departments/orthopedics" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/departments/orthopedics" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/departments/neurosurgery</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/departments/neurosurgery" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/departments/neurosurgery" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/departments/emergency</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/departments/emergency" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/departments/emergency" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/departments/obgyn</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/departments/obgyn" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/departments/obgyn" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/departments/radiology</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/departments/radiology" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/departments/radiology" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/departments/laboratory</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/departments/laboratory" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/departments/laboratory" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/departments/dentistry</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/departments/dentistry" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/departments/dentistry" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/therapy/aba-therapy</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/therapy/aba-therapy" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/therapy/aba-therapy" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/therapy/speech-language-therapy</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/therapy/speech-language-therapy" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/therapy/speech-language-therapy" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/therapy/occupational-therapy</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/therapy/occupational-therapy" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/therapy/occupational-therapy" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/therapy/physiotherapy</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/therapy/physiotherapy" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/therapy/physiotherapy" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/therapy/psychological-counseling</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/therapy/psychological-counseling" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/therapy/psychological-counseling" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/therapy/behavior-management</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/therapy/behavior-management" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/therapy/behavior-management" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/therapy/comprehensive-assessment</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/therapy/comprehensive-assessment" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/therapy/comprehensive-assessment" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/programs/early-intervention</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/programs/early-intervention" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/programs/early-intervention" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/programs/pre-schooling</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/programs/pre-schooling" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/programs/pre-schooling" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/programs/special-education</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/programs/special-education" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/programs/special-education" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/programs/vocational-life-skills</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/programs/vocational-life-skills" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/programs/vocational-life-skills" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/en/programs/structured-academic-support</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/programs/structured-academic-support" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/programs/structured-academic-support" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/about</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/about" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/about" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/contact</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/contact" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/contact" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/faq</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/faq" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/faq" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/team</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/team" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/team" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/gallery</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/gallery" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/gallery" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/medical</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/medical" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/medical" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/autism</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/autism" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/autism" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/doctors</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/doctors" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/doctors" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/departments</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/departments" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/departments" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/appointment</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/appointment" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/appointment" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/ambulance</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/ambulance" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/ambulance" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/packages</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/packages" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/packages" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/diagnostics</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/diagnostics" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/diagnostics" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/therapy</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/therapy" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/therapy" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/programs</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/programs" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/programs" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/admissions</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/admissions" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/admissions" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/assessment</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/assessment" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/assessment" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/activities</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/activities" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/activities" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/doctors/dr-rahman</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/doctors/dr-rahman" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/doctors/dr-rahman" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/doctors/dr-karim</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/doctors/dr-karim" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/doctors/dr-karim" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/doctors/dr-sultana</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/doctors/dr-sultana" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/doctors/dr-sultana" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/doctors/dr-hossain</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/doctors/dr-hossain" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/doctors/dr-hossain" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/doctors/ms-jahan</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/doctors/ms-jahan" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/doctors/ms-jahan" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/doctors/ms-akhtar</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/doctors/ms-akhtar" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/doctors/ms-akhtar" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/departments/cardiology</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/departments/cardiology" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/departments/cardiology" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/departments/pediatrics</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/departments/pediatrics" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/departments/pediatrics" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/departments/neurology</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/departments/neurology" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/departments/neurology" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/departments/psychiatry</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/departments/psychiatry" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/departments/psychiatry" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/departments/orthopedics</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/departments/orthopedics" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/departments/orthopedics" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/departments/neurosurgery</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/departments/neurosurgery" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/departments/neurosurgery" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/departments/emergency</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/departments/emergency" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/departments/emergency" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/departments/obgyn</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/departments/obgyn" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/departments/obgyn" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/departments/radiology</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/departments/radiology" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/departments/radiology" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/departments/laboratory</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/departments/laboratory" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/departments/laboratory" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/departments/dentistry</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/departments/dentistry" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/departments/dentistry" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/therapy/aba-therapy</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/therapy/aba-therapy" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/therapy/aba-therapy" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/therapy/speech-language-therapy</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/therapy/speech-language-therapy" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/therapy/speech-language-therapy" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/therapy/occupational-therapy</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/therapy/occupational-therapy" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/therapy/occupational-therapy" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/therapy/physiotherapy</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/therapy/physiotherapy" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/therapy/physiotherapy" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/therapy/psychological-counseling</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/therapy/psychological-counseling" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/therapy/psychological-counseling" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/therapy/behavior-management</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/therapy/behavior-management" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/therapy/behavior-management" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/therapy/comprehensive-assessment</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/therapy/comprehensive-assessment" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/therapy/comprehensive-assessment" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/programs/early-intervention</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/programs/early-intervention" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/programs/early-intervention" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/programs/pre-schooling</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/programs/pre-schooling" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/programs/pre-schooling" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/programs/special-education</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/programs/special-education" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/programs/special-education" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/programs/vocational-life-skills</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/programs/vocational-life-skills" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/programs/vocational-life-skills" />
+  </url>
+  <url>
+    <loc>https://daig.example.com/bn/programs/structured-academic-support</loc>
+    <lastmod>2026-08-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daig.example.com/en/programs/structured-academic-support" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://daig.example.com/bn/programs/structured-academic-support" />
+  </url>
+</urlset>
