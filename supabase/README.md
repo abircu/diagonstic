@@ -61,6 +61,7 @@ Run once in SQL Editor:
 
 1. [`migrations/public_booking_email.sql`](./migrations/public_booking_email.sql) — adds `email` columns + public insert / admin-only read
 2. [`migrations/youtube_videos.sql`](./migrations/youtube_videos.sql) — YouTube video CMS table
+3. [`migrations/hero_marquee.sql`](./migrations/hero_marquee.sql) — homepage hero marquee text (EN/BN)
 
 Optional older migrations (`user_bookings.sql`, `role_user_default.sql`) are superseded for booking auth; public booking no longer needs `user_id`.
 

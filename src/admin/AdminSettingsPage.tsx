@@ -22,6 +22,12 @@ export function AdminSettingsPage() {
           tagline: asLocalized(row.tagline),
           address: asLocalized(row.address),
           hours: asLocalized(row.hours),
+          marquee_text: (() => {
+            const col = asLocalized(row.marquee_text);
+            if (col.en.trim() || col.bn.trim()) return col;
+            const social = (row.social ?? {}) as { marquee?: unknown };
+            return asLocalized(social.marquee);
+          })(),
         });
       } else {
         setForm({
@@ -39,6 +45,7 @@ export function AdminSettingsPage() {
           address: emptyLocalized(),
           hours: emptyLocalized(),
           social: {},
+          marquee_text: emptyLocalized(),
         });
       }
     })();
@@ -48,8 +55,18 @@ export function AdminSettingsPage() {
     e.preventDefault();
     if (!form) return;
     setBusy(true);
-    const payload = { ...form, id: 1, updated_at: new Date().toISOString() };
-    const { error: err } = await supabase.from("site_settings").upsert(payload as never);
+    const marquee = asLocalized(form.marquee_text);
+    const social = {
+      ...((form.social as Record<string, unknown>) ?? {}),
+      marquee,
+    };
+    const payload = { ...form, id: 1, social, marquee_text: marquee, updated_at: new Date().toISOString() };
+    let { error: err } = await supabase.from("site_settings").upsert(payload as never);
+    if (err && /marquee_text/i.test(err.message)) {
+      const { marquee_text: _drop, ...withoutCol } = payload;
+      const retry = await supabase.from("site_settings").upsert(withoutCol as never);
+      err = retry.error;
+    }
     setBusy(false);
     if (err) toast.error(err.message);
     else toast.success("Settings saved");
@@ -135,6 +152,34 @@ export function AdminSettingsPage() {
           onChange={(hours) => setForm({ ...form, hours })}
           multiline
         />
+        <div className="row-2">
+          <label>
+            Hero marquee (EN)
+            <input
+              value={((form.marquee_text as Localized) ?? emptyLocalized()).en}
+              onChange={(e) =>
+                setForm({
+                  ...form,
+                  marquee_text: { ...((form.marquee_text as Localized) ?? emptyLocalized()), en: e.target.value },
+                })
+              }
+              placeholder="Scrolling announcement on homepage hero"
+            />
+          </label>
+          <label>
+            Hero marquee (BN)
+            <input
+              value={((form.marquee_text as Localized) ?? emptyLocalized()).bn}
+              onChange={(e) =>
+                setForm({
+                  ...form,
+                  marquee_text: { ...((form.marquee_text as Localized) ?? emptyLocalized()), bn: e.target.value },
+                })
+              }
+              placeholder="হিরোতে চলমান ঘোষণা"
+            />
+          </label>
+        </div>
         <button className="btn btn-primary" type="submit" disabled={busy}>
           {busy ? "Saving…" : "Save settings"}
         </button>

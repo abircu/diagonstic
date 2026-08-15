@@ -19,11 +19,12 @@ export type SiteContact = {
   address: Localized;
   hours: Localized;
   social: { facebook?: string; youtube?: string };
+  marquee: Localized;
   url: string;
 };
 
 function fromRow(row: SiteSettingsRow): SiteContact {
-  const social = (row.social ?? {}) as { facebook?: string; youtube?: string };
+  const social = (row.social ?? {}) as { facebook?: string; youtube?: string; marquee?: unknown };
   return {
     brand: row.brand || siteConfig.brand,
     brandShort: row.brand_short || siteConfig.brandShort,
@@ -46,6 +47,12 @@ function fromRow(row: SiteSettingsRow): SiteContact {
       facebook: social.facebook || siteConfig.social.facebook,
       youtube: social.youtube || siteConfig.social.youtube,
     },
+    marquee: (() => {
+      const fromCol = asLocalized(row.marquee_text);
+      const fromSocial = asLocalized(social.marquee);
+      if (fromCol.en.trim() || fromCol.bn.trim()) return fromCol;
+      return fromSocial;
+    })(),
     url: siteConfig.url,
   };
 }
@@ -59,6 +66,7 @@ const fallback: SiteContact = {
   address: { ...siteConfig.address },
   hours: { ...siteConfig.hours },
   social: { ...siteConfig.social },
+  marquee: { en: "", bn: "" },
   url: siteConfig.url,
 };
 

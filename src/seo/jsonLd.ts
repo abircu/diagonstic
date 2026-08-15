@@ -12,6 +12,7 @@ export function orgJsonLd(lang: Lang, site?: SiteContact) {
     address: { ...siteConfig.address },
     hours: { ...siteConfig.hours },
     social: { ...siteConfig.social },
+    marquee: { en: "", bn: "" },
     url: siteConfig.url,
   };
 

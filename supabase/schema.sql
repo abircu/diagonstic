@@ -28,6 +28,7 @@ create table if not exists public.site_settings (
   address jsonb not null default '{"en":"","bn":""}',
   hours jsonb not null default '{"en":"","bn":""}',
   social jsonb not null default '{}',
+  marquee_text jsonb not null default '{"en":"","bn":""}',
   updated_at timestamptz not null default now()
 );
 

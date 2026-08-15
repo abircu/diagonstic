@@ -10,9 +10,11 @@ import { orgJsonLd } from "../seo/jsonLd";
 import { media } from "../assets/media";
 import { useAsyncData } from "../hooks/useAsyncData";
 import { useSiteSettings } from "../hooks/useSiteSettings";
-import { asLocalized, fetchSpecialties, fetchStats, fetchTherapies } from "../services/content";
+import { asLocalized, fetchSpecialties, fetchStats, fetchTherapies, fetchYoutubeVideos } from "../services/content";
 import { langPath, localized, useLang } from "../hooks/useLang";
+import { youtubeEmbedUrl } from "../lib/youtube";
 import "./Home.css";
+import "./Videos.css";
 
 const specialtyImages = [media.diagnostic.one, media.diagnostic.two, media.diagnostic.three];
 
@@ -24,6 +26,7 @@ export function HomePage() {
   const { data: stats, loading: statsLoading } = useAsyncData(() => fetchStats(), []);
   const { data: specialties, loading: specLoading } = useAsyncData(() => fetchSpecialties(), []);
   const { data: therapies, loading: therapyLoading } = useAsyncData(() => fetchTherapies(), []);
+  const { data: videos, loading: videosLoading } = useAsyncData(() => fetchYoutubeVideos(), []);
 
   const featuredTherapies = (therapies ?? []).filter((x) => x.featured).slice(0, 3);
 
@@ -45,6 +48,8 @@ export function HomePage() {
     { id: "s6", image: media.school.two, title: t("nav.activities") },
   ];
 
+  const marqueeText = (localized(site.marquee, lang) || site.marquee.en || site.marquee.bn).trim();
+
   return (
     <>
       <Seo
@@ -55,7 +60,7 @@ export function HomePage() {
         jsonLd={orgJsonLd(lang, site)}
       />
 
-      <section className="home-hero-wrap">
+      <section className={`home-hero-wrap${marqueeText ? " home-hero-wrap--marquee" : ""}`}>
         <Carousel
           variant="hero"
           slides={heroSlides}
@@ -78,6 +83,16 @@ export function HomePage() {
             </div>
           }
         />
+        {marqueeText ? (
+          <div className="hero-marquee" aria-label={marqueeText}>
+            <div className="hero-marquee-track">
+              <span>{marqueeText}</span>
+              <span aria-hidden>{marqueeText}</span>
+              <span aria-hidden>{marqueeText}</span>
+              <span aria-hidden>{marqueeText}</span>
+            </div>
+          </div>
+        ) : null}
       </section>
 
       <Reveal>
@@ -113,6 +128,43 @@ export function HomePage() {
                 </Link>
               </Reveal>
             </div>
+          </div>
+        </section>
+      </Reveal>
+
+      <Reveal>
+        <section className="section">
+          <div className="container">
+            <div className="section-head">
+              <h2>{t("videos.title")}</h2>
+              <p>{t("videos.sub")}</p>
+            </div>
+            {videosLoading ? (
+              <p className="empty-note">{t("common.loading")}</p>
+            ) : (
+              <div className="videos-grid">
+                {(videos ?? []).map((v) => {
+                  const embed = youtubeEmbedUrl(v.youtube_url);
+                  const title = localized(asLocalized(v.title), lang);
+                  if (!embed) return null;
+                  return (
+                    <article key={v.id} className="video-card">
+                      <div className="video-frame">
+                        <iframe
+                          src={embed}
+                          title={title || t("videos.title")}
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                          allowFullScreen
+                          loading="lazy"
+                          referrerPolicy="strict-origin-when-cross-origin"
+                        />
+                      </div>
+                      {title ? <h2 className="video-title">{title}</h2> : null}
+                    </article>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </section>
       </Reveal>

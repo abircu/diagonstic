@@ -39,6 +39,7 @@ export type Database = {
           address: Localized;
           hours: Localized;
           social: Json;
+          marquee_text: Localized;
           updated_at: string;
         };
         Insert: Partial<Database["public"]["Tables"]["site_settings"]["Row"]> & { id?: number };
