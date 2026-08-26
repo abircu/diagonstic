@@ -9,7 +9,7 @@ import { departments } from "../src/data/departments.ts";
 import { doctors } from "../src/data/doctors.ts";
 import { therapies } from "../src/data/therapies.ts";
 import { programs } from "../src/data/programs.ts";
-import { specialties, diagnostics, packages } from "../src/data/medical.ts";
+import { specialties, diagnostics, packages, patientServices } from "../src/data/medical.ts";
 import { faqs, testimonials, galleryItems } from "../src/data/content.ts";
 import { homeStats } from "../src/data/stats.ts";
 import { siteConfig } from "../src/config/site.ts";
@@ -33,6 +33,7 @@ const lines: string[] = [
   "delete from public.gallery_items;",
   "delete from public.testimonials;",
   "delete from public.faqs;",
+  "delete from public.services;",
   "delete from public.stats;",
   "delete from public.packages;",
   "delete from public.diagnostics;",
@@ -124,6 +125,14 @@ lines.push("");
 faqs.forEach((f, i) => {
   lines.push(`insert into public.faqs (id, category, question, answer, sort_order) values (
   '${f.id}', '${f.category}', '${j(f.question)}'::jsonb, '${j(f.answer)}'::jsonb, ${i}
+);`);
+});
+lines.push("");
+
+patientServices.forEach((s, i) => {
+  const link = s.linkPath ? `'${s.linkPath}'` : "null";
+  lines.push(`insert into public.services (slug, name, summary, link_path, sort_order) values (
+  '${s.slug}', '${j(s.name)}'::jsonb, '${j(s.summary)}'::jsonb, ${link}, ${i}
 );`);
 });
 lines.push("");

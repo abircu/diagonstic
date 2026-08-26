@@ -29,6 +29,7 @@ create table if not exists public.site_settings (
   hours jsonb not null default '{"en":"","bn":""}',
   social jsonb not null default '{}',
   marquee_text jsonb not null default '{"en":"","bn":""}',
+  logo_url text,
   updated_at timestamptz not null default now()
 );
 
@@ -126,6 +127,17 @@ create table if not exists public.faqs (
   published boolean not null default true
 );
 
+create table if not exists public.services (
+  id uuid primary key default gen_random_uuid(),
+  slug text not null unique,
+  name jsonb not null default '{"en":"","bn":""}',
+  summary jsonb not null default '{"en":"","bn":""}',
+  link_path text,
+  sort_order int not null default 0,
+  published boolean not null default true,
+  created_at timestamptz not null default now()
+);
+
 create table if not exists public.testimonials (
   id text primary key,
   quote jsonb not null,
@@ -147,6 +159,7 @@ create table if not exists public.youtube_videos (
   id uuid primary key default gen_random_uuid(),
   title jsonb not null default '{"en":"","bn":""}',
   youtube_url text not null,
+  category text not null default 'promo' check (category in ('promo', 'reference')),
   sort_order int not null default 0,
   published boolean not null default true,
   created_at timestamptz not null default now()
@@ -256,6 +269,7 @@ alter table public.specialties enable row level security;
 alter table public.diagnostics enable row level security;
 alter table public.packages enable row level security;
 alter table public.faqs enable row level security;
+alter table public.services enable row level security;
 alter table public.testimonials enable row level security;
 alter table public.gallery_items enable row level security;
 alter table public.youtube_videos enable row level security;
@@ -281,6 +295,7 @@ create policy "specialties_public_read" on public.specialties for select using (
 create policy "diagnostics_public_read" on public.diagnostics for select using (published = true or public.is_admin());
 create policy "packages_public_read" on public.packages for select using (published = true or public.is_admin());
 create policy "faqs_public_read" on public.faqs for select using (published = true or public.is_admin());
+create policy "services_public_read" on public.services for select using (published = true or public.is_admin());
 create policy "testimonials_public_read" on public.testimonials for select using (published = true or public.is_admin());
 create policy "gallery_public_read" on public.gallery_items for select using (published = true or public.is_admin());
 create policy "youtube_public_read" on public.youtube_videos for select using (published = true or public.is_admin());
@@ -297,6 +312,7 @@ create policy "specialties_admin_write" on public.specialties for all using (pub
 create policy "diagnostics_admin_write" on public.diagnostics for all using (public.is_admin()) with check (public.is_admin());
 create policy "packages_admin_write" on public.packages for all using (public.is_admin()) with check (public.is_admin());
 create policy "faqs_admin_write" on public.faqs for all using (public.is_admin()) with check (public.is_admin());
+create policy "services_admin_write" on public.services for all using (public.is_admin()) with check (public.is_admin());
 create policy "testimonials_admin_write" on public.testimonials for all using (public.is_admin()) with check (public.is_admin());
 create policy "gallery_admin_write" on public.gallery_items for all using (public.is_admin()) with check (public.is_admin());
 create policy "youtube_admin_write" on public.youtube_videos for all using (public.is_admin()) with check (public.is_admin());

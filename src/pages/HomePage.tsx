@@ -5,6 +5,7 @@ import { CountUp } from "../components/CountUp";
 import { Carousel } from "../components/Carousel";
 import { Reveal } from "../components/Reveal";
 import { Testimonials } from "../components/Testimonials";
+import { VideoGrid, filterVideosByCategory } from "../components/VideoGrid";
 import { Seo } from "../seo/Seo";
 import { orgJsonLd } from "../seo/jsonLd";
 import { media } from "../assets/media";
@@ -12,7 +13,6 @@ import { useAsyncData } from "../hooks/useAsyncData";
 import { useSiteSettings } from "../hooks/useSiteSettings";
 import { asLocalized, fetchSpecialties, fetchStats, fetchTherapies, fetchYoutubeVideos } from "../services/content";
 import { langPath, localized, useLang } from "../hooks/useLang";
-import { youtubeEmbedUrl } from "../lib/youtube";
 import "./Home.css";
 import "./Videos.css";
 
@@ -28,6 +28,8 @@ export function HomePage() {
   const { data: therapies, loading: therapyLoading } = useAsyncData(() => fetchTherapies(), []);
   const { data: videos, loading: videosLoading } = useAsyncData(() => fetchYoutubeVideos(), []);
 
+  const promoVideos = filterVideosByCategory(videos, "promo");
+  const referenceVideos = filterVideosByCategory(videos, "reference");
   const featuredTherapies = (therapies ?? []).filter((x) => x.featured).slice(0, 3);
 
   const heroSlides = [
@@ -95,6 +97,42 @@ export function HomePage() {
         ) : null}
       </section>
 
+      {(videosLoading || promoVideos.length > 0) && (
+        <Reveal>
+          <section className="section">
+            <div className="container">
+              <div className="section-head">
+                <h2>{t("videos.title")}</h2>
+                <p>{t("videos.sub")}</p>
+              </div>
+              {videosLoading ? (
+                <p className="empty-note">{t("common.loading")}</p>
+              ) : (
+                <VideoGrid videos={promoVideos} lang={lang} fallbackTitle={t("videos.title")} />
+              )}
+            </div>
+          </section>
+        </Reveal>
+      )}
+
+      {(videosLoading || referenceVideos.length > 0) && (
+        <Reveal>
+          <section className="section">
+            <div className="container">
+              <div className="section-head">
+                <h2>{t("videos.referenceTitle")}</h2>
+                <p>{t("videos.referenceSub")}</p>
+              </div>
+              {videosLoading ? (
+                <p className="empty-note">{t("common.loading")}</p>
+              ) : (
+                <VideoGrid videos={referenceVideos} lang={lang} fallbackTitle={t("videos.referenceTitle")} />
+              )}
+            </div>
+          </section>
+        </Reveal>
+      )}
+
       <Reveal>
         <section className="section">
           <div className="container">
@@ -128,43 +166,6 @@ export function HomePage() {
                 </Link>
               </Reveal>
             </div>
-          </div>
-        </section>
-      </Reveal>
-
-      <Reveal>
-        <section className="section">
-          <div className="container">
-            <div className="section-head">
-              <h2>{t("videos.title")}</h2>
-              <p>{t("videos.sub")}</p>
-            </div>
-            {videosLoading ? (
-              <p className="empty-note">{t("common.loading")}</p>
-            ) : (
-              <div className="videos-grid">
-                {(videos ?? []).map((v) => {
-                  const embed = youtubeEmbedUrl(v.youtube_url);
-                  const title = localized(asLocalized(v.title), lang);
-                  if (!embed) return null;
-                  return (
-                    <article key={v.id} className="video-card">
-                      <div className="video-frame">
-                        <iframe
-                          src={embed}
-                          title={title || t("videos.title")}
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                          allowFullScreen
-                          loading="lazy"
-                          referrerPolicy="strict-origin-when-cross-origin"
-                        />
-                      </div>
-                      {title ? <h2 className="video-title">{title}</h2> : null}
-                    </article>
-                  );
-                })}
-              </div>
-            )}
           </div>
         </section>
       </Reveal>

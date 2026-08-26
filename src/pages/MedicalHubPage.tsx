@@ -4,7 +4,6 @@ import { PageHero } from "../components/PageHero";
 import { Reveal } from "../components/Reveal";
 import { Seo } from "../seo/Seo";
 import { orgJsonLd } from "../seo/jsonLd";
-import { patientServices } from "../data/medical";
 import { diagnosticGallery, media } from "../assets/media";
 import { useAsyncData } from "../hooks/useAsyncData";
 import {
@@ -12,6 +11,7 @@ import {
   fetchDepartments,
   fetchDiagnostics,
   fetchPackages,
+  fetchServices,
   fetchSpecialties,
 } from "../services/content";
 import { langPath, localized, useLang } from "../hooks/useLang";
@@ -24,6 +24,7 @@ export function MedicalHubPage() {
   const { data: departments, loading: deptLoading } = useAsyncData(() => fetchDepartments(), []);
   const { data: diagnostics, loading: diagLoading } = useAsyncData(() => fetchDiagnostics(), []);
   const { data: packages, loading: pkgLoading } = useAsyncData(() => fetchPackages(), []);
+  const { data: services, loading: servicesLoading } = useAsyncData(() => fetchServices(), []);
 
   return (
     <>
@@ -161,22 +162,30 @@ export function MedicalHubPage() {
             <div className="section-head">
               <h2>{t("medical.servicesTitle")}</h2>
             </div>
-            <div className="card-grid cols-4">
-              {patientServices.map((s) => (
-                <article key={s.slug} className="surface-card">
-                  <h3>
-                    {s.slug === "ambulance" ? (
-                      <Link className="title-link" to={link("/ambulance")}>
-                        {localized(s.name, lang)}
-                      </Link>
-                    ) : (
-                      localized(s.name, lang)
-                    )}
-                  </h3>
-                  <p>{localized(s.summary, lang)}</p>
-                </article>
-              ))}
-            </div>
+            {servicesLoading ? (
+              <p className="empty-note">{t("common.loading")}</p>
+            ) : (
+              <div className="card-grid cols-4">
+                {(services ?? []).map((s) => {
+                  const name = localized(asLocalized(s.name), lang);
+                  const path = (s.link_path ?? "").trim();
+                  return (
+                    <article key={s.id} className="surface-card">
+                      <h3>
+                        {path ? (
+                          <Link className="title-link" to={link(path)}>
+                            {name}
+                          </Link>
+                        ) : (
+                          name
+                        )}
+                      </h3>
+                      <p>{localized(asLocalized(s.summary), lang)}</p>
+                    </article>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </Reveal>
       </section>

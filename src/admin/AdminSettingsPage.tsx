@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
 import type { Database, Localized } from "../lib/database.types";
 import { useToast } from "../components/Toast";
 import { supabase } from "../lib/supabase";
@@ -10,22 +10,32 @@ export function AdminSettingsPage() {
   const toast = useToast();
   const [form, setForm] = useState<Partial<Settings> | null>(null);
   const [busy, setBusy] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [pendingLogo, setPendingLogo] = useState<File | null>(null);
+  const [pendingPreview, setPendingPreview] = useState<string | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (pendingPreview) URL.revokeObjectURL(pendingPreview);
+    };
+  }, [pendingPreview]);
 
   useEffect(() => {
     (async () => {
       const { data, error: err } = await supabase.from("site_settings").select("*").eq("id", 1).maybeSingle();
-      if (err) toast.error(err.message);
+      if (err) toast.error("Load failed");
       else if (data) {
         const row = data as Settings;
+        const social = (row.social ?? {}) as { marquee?: unknown; logo?: string };
         setForm({
           ...row,
           tagline: asLocalized(row.tagline),
           address: asLocalized(row.address),
           hours: asLocalized(row.hours),
+          logo_url: row.logo_url || social.logo || "",
           marquee_text: (() => {
             const col = asLocalized(row.marquee_text);
             if (col.en.trim() || col.bn.trim()) return col;
-            const social = (row.social ?? {}) as { marquee?: unknown };
             return asLocalized(social.marquee);
           })(),
         });
@@ -46,38 +56,124 @@ export function AdminSettingsPage() {
           hours: emptyLocalized(),
           social: {},
           marquee_text: emptyLocalized(),
+          logo_url: "",
         });
       }
     })();
   }, [toast]);
+
+  function onLogoPick(e: ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0] ?? null;
+    e.target.value = "";
+    if (pendingPreview) URL.revokeObjectURL(pendingPreview);
+    if (!file) {
+      setPendingLogo(null);
+      setPendingPreview(null);
+      return;
+    }
+    if (!/\.(jpe?g|png|svg|webp)$/i.test(file.name) && !file.type.startsWith("image/")) {
+      toast.error("Invalid file type");
+      return;
+    }
+    if (file.size > 2 * 1024 * 1024) {
+      toast.error("File too large");
+      return;
+    }
+    setPendingLogo(file);
+    setPendingPreview(URL.createObjectURL(file));
+  }
+
+  async function uploadLogo() {
+    if (!pendingLogo || !form) {
+      toast.error("Select a logo first");
+      return;
+    }
+    setUploading(true);
+    const ext = pendingLogo.name.split(".").pop()?.toLowerCase() || "png";
+    const mime =
+      pendingLogo.type ||
+      (ext === "svg" ? "image/svg+xml" : ext === "png" ? "image/png" : ext === "webp" ? "image/webp" : "image/jpeg");
+    const path = `logo/brand-${Date.now()}.${ext}`;
+    const { error: upErr } = await supabase.storage.from("site-assets").upload(path, pendingLogo, {
+      cacheControl: "3600",
+      upsert: false,
+      contentType: mime,
+    });
+    if (upErr) {
+      setUploading(false);
+      toast.error("Upload failed");
+      return;
+    }
+    const { data } = supabase.storage.from("site-assets").getPublicUrl(path);
+    const logoUrl = data.publicUrl;
+    setForm({ ...form, logo_url: logoUrl });
+    if (pendingPreview) URL.revokeObjectURL(pendingPreview);
+    setPendingLogo(null);
+    setPendingPreview(null);
+
+    const marquee = asLocalized(form.marquee_text);
+    const social = {
+      ...((form.social as Record<string, unknown>) ?? {}),
+      marquee,
+      logo: logoUrl,
+    };
+    const payload = {
+      ...form,
+      id: 1,
+      logo_url: logoUrl,
+      social,
+      marquee_text: marquee,
+      updated_at: new Date().toISOString(),
+    };
+    let { error: err } = await supabase.from("site_settings").upsert(payload as never);
+    if (err && /marquee_text|logo_url/i.test(err.message)) {
+      const { marquee_text: _m, logo_url: _l, ...withoutCols } = payload;
+      const retry = await supabase.from("site_settings").upsert({ ...withoutCols, social } as never);
+      err = retry.error;
+    }
+    setUploading(false);
+    if (err) toast.error("Save failed");
+    else toast.success("Logo uploaded");
+  }
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
     if (!form) return;
     setBusy(true);
     const marquee = asLocalized(form.marquee_text);
+    const logo = (form.logo_url ?? "").trim() || null;
     const social = {
       ...((form.social as Record<string, unknown>) ?? {}),
       marquee,
+      logo: logo ?? "",
     };
-    const payload = { ...form, id: 1, social, marquee_text: marquee, updated_at: new Date().toISOString() };
+    const payload = {
+      ...form,
+      id: 1,
+      social,
+      marquee_text: marquee,
+      logo_url: logo,
+      updated_at: new Date().toISOString(),
+    };
     let { error: err } = await supabase.from("site_settings").upsert(payload as never);
-    if (err && /marquee_text/i.test(err.message)) {
-      const { marquee_text: _drop, ...withoutCol } = payload;
-      const retry = await supabase.from("site_settings").upsert(withoutCol as never);
+    if (err && /marquee_text|logo_url/i.test(err.message)) {
+      const { marquee_text: _m, logo_url: _l, ...withoutCols } = payload;
+      const retry = await supabase.from("site_settings").upsert({ ...withoutCols, social } as never);
       err = retry.error;
     }
     setBusy(false);
-    if (err) toast.error(err.message);
+    if (err) toast.error("Save failed");
     else toast.success("Settings saved");
   }
 
   if (!form) return <p>Loading settings…</p>;
 
+  const logoPreview = (form.logo_url ?? "").trim();
+
   return (
     <div className="admin-page">
       <h1>Site settings</h1>
-      <p className="admin-lead">Phone, email, address, hours used across the public site.</p>
+      <p className="admin-lead">Phone, email, address, hours, and navbar logo used across the public site.</p>
       <form className="admin-form" onSubmit={onSubmit}>
         <div className="row-2">
           <label>
@@ -89,6 +185,49 @@ export function AdminSettingsPage() {
             <input value={form.brand_short ?? ""} onChange={(e) => setForm({ ...form, brand_short: e.target.value })} required />
           </label>
         </div>
+
+        <div className="admin-logo-block">
+          <strong>Navbar logo</strong>
+          {(pendingPreview || logoPreview) ? (
+            <div className="admin-logo-preview">
+              <img src={pendingPreview || logoPreview} alt="Logo preview" />
+            </div>
+          ) : null}
+          {pendingLogo ? <p className="admin-lead" style={{ margin: 0 }}>{pendingLogo.name}</p> : null}
+          <label>
+            Choose logo
+            <input
+              type="file"
+              accept=".jpg,.jpeg,.png,.svg,image/jpeg,image/png,image/svg+xml"
+              onChange={onLogoPick}
+              disabled={uploading || busy}
+            />
+          </label>
+          <div className="admin-actions">
+            <button type="button" className="btn btn-primary" onClick={() => void uploadLogo()} disabled={!pendingLogo || uploading || busy}>
+              {uploading ? "Uploading…" : "Upload logo"}
+            </button>
+            {logoPreview ? (
+              <button
+                type="button"
+                className="admin-btn"
+                onClick={() => setForm({ ...form, logo_url: "" })}
+                disabled={busy || uploading}
+              >
+                Remove logo
+              </button>
+            ) : null}
+          </div>
+          <label>
+            Or logo URL
+            <input
+              value={form.logo_url ?? ""}
+              onChange={(e) => setForm({ ...form, logo_url: e.target.value })}
+              placeholder="https://…"
+            />
+          </label>
+        </div>
+
         <LocalizedInputs
           label="Tagline"
           value={(form.tagline as Localized) ?? emptyLocalized()}
@@ -180,7 +319,7 @@ export function AdminSettingsPage() {
             />
           </label>
         </div>
-        <button className="btn btn-primary" type="submit" disabled={busy}>
+        <button className="btn btn-primary" type="submit" disabled={busy || uploading}>
           {busy ? "Saving…" : "Save settings"}
         </button>
       </form>

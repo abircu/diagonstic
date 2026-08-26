@@ -1,53 +1,70 @@
 import { useTranslation } from "react-i18next";
 import { PageHero } from "../components/PageHero";
+import { VideoGrid, filterVideosByCategory } from "../components/VideoGrid";
 import { Seo } from "../seo/Seo";
 import { useAsyncData } from "../hooks/useAsyncData";
-import { asLocalized, fetchYoutubeVideos } from "../services/content";
-import { localized, useLang } from "../hooks/useLang";
-import { youtubeEmbedUrl } from "../lib/youtube";
+import { fetchYoutubeVideos } from "../services/content";
+import { useLang } from "../hooks/useLang";
 import "./Videos.css";
 
 export function VideosPage() {
   const { t } = useTranslation();
   const lang = useLang();
   const { data, loading, error } = useAsyncData(() => fetchYoutubeVideos(), []);
-  const videos = data ?? [];
+  const promoVideos = filterVideosByCategory(data, "promo");
+  const referenceVideos = filterVideosByCategory(data, "reference");
+  const empty = !loading && !error && promoVideos.length === 0 && referenceVideos.length === 0;
 
   return (
     <>
-      <Seo title={`${t("videos.title")} | ${t("brand.short")}`} description={t("videos.sub")} lang={lang} path="/videos" />
-      <PageHero title={t("videos.title")} subtitle={t("videos.sub")} crumbs={[{ label: t("nav.videos") }]} />
-      <section className="section">
-        <div className="container">
-          {loading ? <p className="empty-note">{t("common.loading")}</p> : null}
-          {error ? <p className="error">{error}</p> : null}
-          {!loading && !error && videos.length === 0 ? (
-            <p className="empty-note">{t("videos.empty")}</p>
-          ) : null}
-          <div className="videos-grid">
-            {videos.map((v) => {
-              const embed = youtubeEmbedUrl(v.youtube_url);
-              const title = localized(asLocalized(v.title), lang);
-              if (!embed) return null;
-              return (
-                <article key={v.id} className="video-card">
-                  <div className="video-frame">
-                    <iframe
-                      src={embed}
-                      title={title || t("videos.title")}
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      allowFullScreen
-                      loading="lazy"
-                      referrerPolicy="strict-origin-when-cross-origin"
-                    />
-                  </div>
-                  {title ? <h2 className="video-title">{title}</h2> : null}
-                </article>
-              );
-            })}
+      <Seo title={`${t("nav.videos")} | ${t("brand.short")}`} description={t("videos.sub")} lang={lang} path="/videos" />
+      <PageHero title={t("nav.videos")} subtitle={t("videos.pageSub")} crumbs={[{ label: t("nav.videos") }]} />
+
+      {loading ? (
+        <section className="section">
+          <div className="container">
+            <p className="empty-note">{t("common.loading")}</p>
           </div>
-        </div>
-      </section>
+        </section>
+      ) : null}
+      {error ? (
+        <section className="section">
+          <div className="container">
+            <p className="error">{error}</p>
+          </div>
+        </section>
+      ) : null}
+      {empty ? (
+        <section className="section">
+          <div className="container">
+            <p className="empty-note">{t("videos.empty")}</p>
+          </div>
+        </section>
+      ) : null}
+
+      {promoVideos.length > 0 ? (
+        <section className="section">
+          <div className="container">
+            <div className="section-head">
+              <h2>{t("videos.title")}</h2>
+              <p>{t("videos.sub")}</p>
+            </div>
+            <VideoGrid videos={promoVideos} lang={lang} fallbackTitle={t("videos.title")} />
+          </div>
+        </section>
+      ) : null}
+
+      {referenceVideos.length > 0 ? (
+        <section className="section">
+          <div className="container">
+            <div className="section-head">
+              <h2>{t("videos.referenceTitle")}</h2>
+              <p>{t("videos.referenceSub")}</p>
+            </div>
+            <VideoGrid videos={referenceVideos} lang={lang} fallbackTitle={t("videos.referenceTitle")} />
+          </div>
+        </section>
+      ) : null}
     </>
   );
 }

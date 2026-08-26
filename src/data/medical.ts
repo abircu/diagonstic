@@ -162,6 +162,7 @@ export type PatientService = {
   slug: string;
   name: Localized;
   summary: Localized;
+  linkPath?: string;
 };
 
 export const patientServices: PatientService[] = [
@@ -169,6 +170,7 @@ export const patientServices: PatientService[] = [
     slug: "ambulance",
     name: { en: "Ambulance", bn: "অ্যাম্বুলেন্স" },
     summary: { en: "Rapid ambulance booking and emergency transport.", bn: "দ্রুত অ্যাম্বুলেন্স বুকিং ও জরুরি পরিবহন।" },
+    linkPath: "/ambulance",
   },
   {
     slug: "pharmacy",

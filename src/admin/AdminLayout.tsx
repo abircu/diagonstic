@@ -10,6 +10,7 @@ const links = [
   { to: "/admin/therapies", label: "Therapies" },
   { to: "/admin/programs", label: "Programs" },
   { to: "/admin/faqs", label: "FAQs" },
+  { to: "/admin/services", label: "Services" },
   { to: "/admin/videos", label: "Videos" },
   { to: "/admin/settings", label: "Settings" },
 ];

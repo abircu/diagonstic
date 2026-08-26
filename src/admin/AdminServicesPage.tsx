@@ -1,27 +1,22 @@
 import { useCallback, useEffect, useState, type FormEvent } from "react";
 import type { Database, Localized } from "../lib/database.types";
 import { useToast } from "../components/Toast";
-import { isValidPromoVideoUrl } from "../lib/youtube";
 import { supabase } from "../lib/supabase";
-import { LocalizedInputs, asLocalized, emptyLocalized } from "./adminForm";
+import { LocalizedInputs, asLocalized, emptyLocalized, slugify } from "./adminForm";
 
-type Row = Database["public"]["Tables"]["youtube_videos"]["Row"];
-type Input = Database["public"]["Tables"]["youtube_videos"]["Insert"];
-type VideoCategory = "promo" | "reference";
+type Row = Database["public"]["Tables"]["services"]["Row"];
+type Input = Database["public"]["Tables"]["services"]["Insert"];
 
 const blank = (): Input => ({
-  title: emptyLocalized(),
-  youtube_url: "",
-  category: "promo",
+  slug: "",
+  name: emptyLocalized(),
+  summary: emptyLocalized(),
+  link_path: "",
   sort_order: 0,
   published: true,
 });
 
-function categoryLabel(c: string | undefined) {
-  return c === "reference" ? "Reference video" : "Promo video";
-}
-
-export function AdminVideosPage() {
+export function AdminServicesPage() {
   const toast = useToast();
   const [rows, setRows] = useState<Row[]>([]);
   const [form, setForm] = useState<Input>(blank());
@@ -29,7 +24,7 @@ export function AdminVideosPage() {
   const [busy, setBusy] = useState(false);
 
   const load = useCallback(async () => {
-    const { data, error: err } = await supabase.from("youtube_videos").select("*").order("sort_order");
+    const { data, error: err } = await supabase.from("services").select("*").order("sort_order");
     if (err) toast.error(err.message);
     else setRows((data ?? []) as Row[]);
   }, []);
@@ -41,9 +36,10 @@ export function AdminVideosPage() {
   function startEdit(row: Row) {
     setEditId(row.id);
     setForm({
-      title: asLocalized(row.title),
-      youtube_url: row.youtube_url,
-      category: row.category ?? "promo",
+      slug: row.slug,
+      name: asLocalized(row.name),
+      summary: asLocalized(row.summary),
+      link_path: row.link_path ?? "",
       sort_order: row.sort_order,
       published: row.published,
     });
@@ -56,36 +52,33 @@ export function AdminVideosPage() {
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
-    const url = (form.youtube_url ?? "").trim();
-    if (!isValidPromoVideoUrl(url)) {
-      toast.error("Enter a YouTube or Cloudinary video link");
-      return;
-    }
     setBusy(true);
+    const link = (form.link_path ?? "").trim();
     const payload = {
-      title: form.title,
-      youtube_url: url,
-      category: (form.category ?? "promo") as VideoCategory,
+      slug: form.slug || slugify(form.name.en),
+      name: form.name,
+      summary: form.summary,
+      link_path: link || null,
       sort_order: form.sort_order ?? 0,
       published: form.published ?? true,
     };
     const q = editId
-      ? supabase.from("youtube_videos").update(payload as never).eq("id", editId)
-      : supabase.from("youtube_videos").insert(payload as never);
+      ? supabase.from("services").update(payload as never).eq("id", editId)
+      : supabase.from("services").insert(payload as never);
     const { error: err } = await q;
     setBusy(false);
     if (err) {
       toast.error(err.message);
       return;
     }
-    toast.success(editId ? "Video updated" : "Video added");
+    toast.success(editId ? "Updated" : "Created");
     reset();
     await load();
   }
 
   async function remove(id: string) {
-    if (!confirm("Delete this video?")) return;
-    const { error: err } = await supabase.from("youtube_videos").delete().eq("id", id);
+    if (!confirm("Delete this service?")) return;
+    const { error: err } = await supabase.from("services").delete().eq("id", id);
     if (err) toast.error(err.message);
     else {
       toast.success("Deleted");
@@ -95,33 +88,30 @@ export function AdminVideosPage() {
 
   return (
     <div className="admin-page">
-      <h1>Videos</h1>
-      <p className="admin-lead">
-        Choose category, then paste a YouTube or Cloudinary link. Promo → homepage promo section; Reference → reference videos
-        section.
-      </p>
+      <h1>Services</h1>
+      <p className="admin-lead">Medical hub patient services (ambulance, pharmacy, etc.). Shown on /medical.</p>
       <form className="admin-form" onSubmit={onSubmit}>
-        <LocalizedInputs label="Title" value={form.title as Localized} onChange={(title) => setForm({ ...form, title })} />
-        <label>
-          Category
-          <select
-            value={form.category ?? "promo"}
-            onChange={(e) => setForm({ ...form, category: e.target.value as VideoCategory })}
-            required
-          >
-            <option value="promo">Promo video</option>
-            <option value="reference">Reference video</option>
-          </select>
-        </label>
-        <label>
-          Video URL (YouTube or Cloudinary)
-          <input
-            value={form.youtube_url ?? ""}
-            onChange={(e) => setForm({ ...form, youtube_url: e.target.value })}
-            placeholder="https://youtube.com/… or https://res.cloudinary.com/…/video/upload/…"
-            required
-          />
-        </label>
+        <LocalizedInputs label="Name" value={form.name as Localized} onChange={(name) => setForm({ ...form, name })} />
+        <LocalizedInputs
+          label="Summary"
+          value={form.summary as Localized}
+          onChange={(summary) => setForm({ ...form, summary })}
+          multiline
+        />
+        <div className="row-2">
+          <label>
+            Slug
+            <input value={form.slug ?? ""} onChange={(e) => setForm({ ...form, slug: e.target.value })} placeholder="auto from name" />
+          </label>
+          <label>
+            Link path (optional)
+            <input
+              value={form.link_path ?? ""}
+              onChange={(e) => setForm({ ...form, link_path: e.target.value })}
+              placeholder="/ambulance"
+            />
+          </label>
+        </div>
         <div className="row-2">
           <label>
             Sort
@@ -144,7 +134,7 @@ export function AdminVideosPage() {
         </div>
         <div className="admin-actions">
           <button className="btn btn-primary" type="submit" disabled={busy}>
-            {editId ? "Update" : "Add"} video
+            {editId ? "Update" : "Add"} service
           </button>
           {editId ? (
             <button type="button" className="admin-btn" onClick={reset}>
@@ -158,9 +148,9 @@ export function AdminVideosPage() {
         <table className="admin-table">
           <thead>
             <tr>
-              <th>Title</th>
-              <th>Category</th>
-              <th>URL</th>
+              <th>Name</th>
+              <th>Slug</th>
+              <th>Link</th>
               <th>Published</th>
               <th className="admin-col-actions">Actions</th>
             </tr>
@@ -168,18 +158,14 @@ export function AdminVideosPage() {
           <tbody>
             {rows.length === 0 ? (
               <tr>
-                <td colSpan={5}>No videos yet. Add a link above.</td>
+                <td colSpan={5}>No services yet.</td>
               </tr>
             ) : (
               rows.map((r) => (
                 <tr key={r.id}>
-                  <td>{(r.title as Localized).en || "—"}</td>
-                  <td>{categoryLabel(r.category)}</td>
-                  <td className="admin-url-cell">
-                    <a href={r.youtube_url} target="_blank" rel="noreferrer" title={r.youtube_url}>
-                      {r.youtube_url}
-                    </a>
-                  </td>
+                  <td>{(r.name as Localized).en || "—"}</td>
+                  <td>{r.slug}</td>
+                  <td>{r.link_path || "—"}</td>
                   <td>{r.published ? "Yes" : "No"}</td>
                   <td className="admin-col-actions">
                     <div className="admin-actions">

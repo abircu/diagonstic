@@ -163,6 +163,9 @@
   "videos": {
     "title": "Promo videos",
     "sub": "Watch campus updates, therapy insights, and family stories.",
+    "referenceTitle": "Reference videos",
+    "referenceSub": "Guides and reference clips about our care, therapy, and programs.",
+    "pageSub": "Promo and reference videos from our center.",
     "empty": "No videos published yet."
   },
   "doctors": {

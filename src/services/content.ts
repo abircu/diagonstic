@@ -6,6 +6,7 @@ export type DepartmentRow = Database["public"]["Tables"]["departments"]["Row"];
 export type TherapyRow = Database["public"]["Tables"]["therapies"]["Row"];
 export type ProgramRow = Database["public"]["Tables"]["programs"]["Row"];
 export type FaqRow = Database["public"]["Tables"]["faqs"]["Row"];
+export type ServiceRow = Database["public"]["Tables"]["services"]["Row"];
 export type TestimonialRow = Database["public"]["Tables"]["testimonials"]["Row"];
 export type SpecialtyRow = Database["public"]["Tables"]["specialties"]["Row"];
 export type DiagnosticRow = Database["public"]["Tables"]["diagnostics"]["Row"];
@@ -86,6 +87,10 @@ export async function fetchProgramBySlug(slug: string) {
 
 export async function fetchFaqs() {
   return listPublished<FaqRow>("faqs");
+}
+
+export async function fetchServices() {
+  return listPublished<ServiceRow>("services");
 }
 
 export async function fetchTestimonials() {

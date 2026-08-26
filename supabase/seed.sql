@@ -9,6 +9,7 @@ delete from public.sliders;
 delete from public.gallery_items;
 delete from public.testimonials;
 delete from public.faqs;
+delete from public.services;
 delete from public.stats;
 delete from public.packages;
 delete from public.diagnostics;
@@ -213,6 +214,19 @@ insert into public.faqs (id, category, question, answer, sort_order) values (
 );
 insert into public.faqs (id, category, question, answer, sort_order) values (
   'packages', 'medical', '{"en":"What is included in health check-up packages?","bn":"হেলথ চেক-আপ প্যাকেজে কী থাকে?"}'::jsonb, '{"en":"Packages typically include physician consult, lab panels, and selected imaging. See the Packages page for details.","bn":"প্যাকেজে সাধারণত চিকিৎসক পরামর্শ, ল্যাব প্যানেল ও নির্বাচিত ইমেজিং থাকে। বিস্তারিত প্যাকেজ পৃষ্ঠায় দেখুন।"}'::jsonb, 5
+);
+
+insert into public.services (slug, name, summary, link_path, sort_order) values (
+  'ambulance', '{"en":"Ambulance","bn":"অ্যাম্বুলেন্স"}'::jsonb, '{"en":"Rapid ambulance booking and emergency transport.","bn":"দ্রুত অ্যাম্বুলেন্স বুকিং ও জরুরি পরিবহন।"}'::jsonb, '/ambulance', 0
+);
+insert into public.services (slug, name, summary, link_path, sort_order) values (
+  'pharmacy', '{"en":"Pharmacy","bn":"ফার্মেসি"}'::jsonb, '{"en":"On-campus medicines for inpatients and OPD visitors.","bn":"ইনপেশেন্ট ও ওপিডি দর্শনার্থীদের জন্য ক্যাম্পাস ওষুধ।"}'::jsonb, null, 1
+);
+insert into public.services (slug, name, summary, link_path, sort_order) values (
+  'blood-bank', '{"en":"Blood Bank","bn":"ব্লাড ব্যাংক"}'::jsonb, '{"en":"Safe blood supply for surgery and emergencies.","bn":"অস্ত্রোপচার ও জরুরি অবস্থার জন্য নিরাপদ রক্ত সরবরাহ।"}'::jsonb, null, 2
+);
+insert into public.services (slug, name, summary, link_path, sort_order) values (
+  'guest-house', '{"en":"Guest House","bn":"গেস্ট হাউস"}'::jsonb, '{"en":"Affordable stay options for patient families.","bn":"রোগীর পরিবারের জন্য সাশ্রয়ী থাকার ব্যবস্থা।"}'::jsonb, null, 3
 );
 
 insert into public.testimonials (id, quote, author, sort_order) values (

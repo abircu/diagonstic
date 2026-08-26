@@ -61,12 +61,17 @@ Run once in SQL Editor:
 
 1. [`migrations/public_booking_email.sql`](./migrations/public_booking_email.sql) — adds `email` columns + public insert / admin-only read
 2. [`migrations/youtube_videos.sql`](./migrations/youtube_videos.sql) — YouTube video CMS table
-3. [`migrations/hero_marquee.sql`](./migrations/hero_marquee.sql) — homepage hero marquee text (EN/BN)
+3. [`migrations/youtube_videos_category.sql`](./migrations/youtube_videos_category.sql) — `promo` / `reference` category
+4. [`migrations/services.sql`](./migrations/services.sql) — patient services CMS (Medical hub)
+5. [`migrations/hero_marquee.sql`](./migrations/hero_marquee.sql) — homepage hero marquee text (EN/BN)
+6. [`migrations/site_logo.sql`](./migrations/site_logo.sql) — navbar `logo_url` + `site-assets` storage bucket
 
 Optional older migrations (`user_bookings.sql`, `role_user_default.sql`) are superseded for booking auth; public booking no longer needs `user_id`.
 
 In **Admin → Requests**, search by phone / email / name.  
-In **Admin → Videos**, paste YouTube links → public site `/en/videos`.
+In **Admin → Videos**, pick category (**Promo video** / **Reference video**) + paste YouTube or Cloudinary link → homepage shows two sections.  
+In **Admin → Services**, manage Medical hub services (name, summary, optional link path).  
+In **Admin → FAQs**, manage FAQ Q&A.
 
 ## 5. Verify from app
 

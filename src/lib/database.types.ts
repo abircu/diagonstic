@@ -40,6 +40,7 @@ export type Database = {
           hours: Localized;
           social: Json;
           marquee_text: Localized;
+          logo_url: string | null;
           updated_at: string;
         };
         Insert: Partial<Database["public"]["Tables"]["site_settings"]["Row"]> & { id?: number };
@@ -230,6 +231,29 @@ export type Database = {
         };
         Update: Partial<Database["public"]["Tables"]["faqs"]["Insert"]>;
       };
+      services: {
+        Row: {
+          id: string;
+          slug: string;
+          name: Localized;
+          summary: Localized;
+          link_path: string | null;
+          sort_order: number;
+          published: boolean;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          slug: string;
+          name: Localized;
+          summary: Localized;
+          link_path?: string | null;
+          sort_order?: number;
+          published?: boolean;
+          created_at?: string;
+        };
+        Update: Partial<Database["public"]["Tables"]["services"]["Insert"]>;
+      };
       testimonials: {
         Row: {
           id: string;
@@ -271,6 +295,7 @@ export type Database = {
           id: string;
           title: Localized;
           youtube_url: string;
+          category: "promo" | "reference";
           sort_order: number;
           published: boolean;
           created_at: string;
@@ -279,6 +304,7 @@ export type Database = {
           id?: string;
           title: Localized;
           youtube_url: string;
+          category?: "promo" | "reference";
           sort_order?: number;
           published?: boolean;
           created_at?: string;

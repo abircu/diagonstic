@@ -24,6 +24,7 @@ type Counts = {
   therapies: number;
   programs: number;
   faqs: number;
+  services: number;
   appointments: number;
   assessments: number;
   ambulances: number;
@@ -82,6 +83,7 @@ export function AdminDashboardPage() {
           therapies,
           programs,
           faqs,
+          services,
           appointments,
           assessments,
           ambulances,
@@ -94,6 +96,7 @@ export function AdminDashboardPage() {
           count("therapies"),
           count("programs"),
           count("faqs"),
+          count("services"),
           count("appointment_requests"),
           count("assessment_requests"),
           count("ambulance_requests"),
@@ -149,7 +152,7 @@ export function AdminDashboardPage() {
         ].sort((a, b) => b.created_at.localeCompare(a.created_at));
 
         if (!cancelled) {
-          setCounts({ doctors, departments, therapies, programs, faqs, appointments, assessments, ambulances });
+          setCounts({ doctors, departments, therapies, programs, faqs, services, appointments, assessments, ambulances });
           setRequests(merged);
         }
       } catch (err) {
@@ -183,6 +186,7 @@ export function AdminDashboardPage() {
       { name: "Therapies", count: counts.therapies },
       { name: "Programs", count: counts.programs },
       { name: "FAQs", count: counts.faqs },
+      { name: "Services", count: counts.services },
     ];
   }, [counts]);
 

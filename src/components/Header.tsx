@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { type Lang } from "../config/site";
 import { useAuth } from "../lib/auth";
+import { useSiteSettings } from "../hooks/useSiteSettings";
 import { langPath, useLang } from "../hooks/useLang";
 import "./Header.css";
 
@@ -12,6 +13,7 @@ export function Header() {
   const location = useLocation();
   const navigate = useNavigate();
   const { isAdmin, signOut, loading } = useAuth();
+  const { site } = useSiteSettings();
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -37,12 +39,16 @@ export function Header() {
   return (
     <header className="site-header">
       <div className="container header-inner">
-        <Link to={link("/")} className="brand" aria-label={t("brand.name")}>
-          <span className="brand-mark" aria-hidden>
-            S
-          </span>
+        <Link to={link("/")} className="brand" aria-label={site.brand || t("brand.name")}>
+          {site.logoUrl ? (
+            <img className="brand-logo" src={site.logoUrl} alt="" />
+          ) : (
+            <span className="brand-mark" aria-hidden>
+              S
+            </span>
+          )}
           <span className="brand-text">
-            <strong>{t("brand.short")}</strong>
+            <strong>{site.brandShort || t("brand.short")}</strong>
             <small>{t("brand.taglineSmall")}</small>
           </span>
         </Link>

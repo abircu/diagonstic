@@ -34,6 +34,7 @@ import { AdminDepartmentsPage } from "../admin/AdminDepartmentsPage";
 import { AdminTherapiesPage } from "../admin/AdminTherapiesPage";
 import { AdminProgramsPage } from "../admin/AdminProgramsPage";
 import { AdminFaqsPage } from "../admin/AdminFaqsPage";
+import { AdminServicesPage } from "../admin/AdminServicesPage";
 import { AdminVideosPage } from "../admin/AdminVideosPage";
 import { AdminSettingsPage } from "../admin/AdminSettingsPage";
 import { VideosPage } from "../pages/VideosPage";
@@ -51,6 +52,7 @@ export function AppRouter() {
           <Route path="therapies" element={<AdminTherapiesPage />} />
           <Route path="programs" element={<AdminProgramsPage />} />
           <Route path="faqs" element={<AdminFaqsPage />} />
+          <Route path="services" element={<AdminServicesPage />} />
           <Route path="videos" element={<AdminVideosPage />} />
           <Route path="settings" element={<AdminSettingsPage />} />
           <Route path="*" element={<p className="admin-page">Admin page not found.</p>} />
