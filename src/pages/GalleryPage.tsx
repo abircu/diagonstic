@@ -2,14 +2,26 @@ import { useTranslation } from "react-i18next";
 import { PageHero } from "../components/PageHero";
 import { Seo } from "../seo/Seo";
 import { diagnosticGallery, schoolGallery } from "../assets/media";
-import { useLang } from "../hooks/useLang";
+import { useAsyncData } from "../hooks/useAsyncData";
+import { asLocalized, fetchGalleryItems } from "../services/content";
+import { localized, useLang } from "../hooks/useLang";
 import "./Gallery.css";
 
 export function GalleryPage() {
   const { t } = useTranslation();
   const lang = useLang();
+  const { data, loading } = useAsyncData(() => fetchGalleryItems(), []);
 
-  const items = [
+  const cmsItems = (data ?? [])
+    .filter((g) => g.image_url)
+    .map((g) => ({
+      id: g.id,
+      src: g.image_url as string,
+      title: localized(asLocalized(g.title), lang),
+      kind: g.kind,
+    }));
+
+  const fallbackItems = [
     ...diagnosticGallery.map((item, i) => ({
       id: `d-${item.key}`,
       src: item.src,
@@ -24,26 +36,26 @@ export function GalleryPage() {
     })),
   ];
 
+  const items = cmsItems.length > 0 ? cmsItems : fallbackItems;
+  const heroImage = items[0]?.src || schoolGallery[0].src;
+
   return (
     <>
       <Seo title={`${t("gallery.title")} | ${t("brand.short")}`} description={t("gallery.sub")} lang={lang} path="/gallery" />
-      <PageHero
-        title={t("gallery.title")}
-        subtitle={t("gallery.sub")}
-        crumbs={[{ label: t("nav.gallery") }]}
-        image={schoolGallery[0].src}
-      />
+      <PageHero title={t("gallery.title")} subtitle={t("gallery.sub")} crumbs={[{ label: t("nav.gallery") }]} image={heroImage} />
       <section className="section">
         <div className="container gallery-grid">
-          {items.map((g) => (
-            <figure key={g.id} className="gallery-tile gallery-tile--photo">
-              <img src={g.src} alt={g.title} loading="lazy" />
-              <div className="gallery-tile-meta">
-                <span className="chip">{t("gallery.photo")}</span>
-                <figcaption>{g.title}</figcaption>
-              </div>
-            </figure>
-          ))}
+          {loading ? <p className="empty-note">{t("common.loading")}</p> : null}
+          {!loading &&
+            items.map((g) => (
+              <figure key={g.id} className={`gallery-tile gallery-tile--${g.kind}`}>
+                <img src={g.src} alt={g.title} loading="lazy" />
+                <div className="gallery-tile-meta">
+                  <span className="chip">{g.kind === "video" ? t("gallery.video") : t("gallery.photo")}</span>
+                  <figcaption>{g.title}</figcaption>
+                </div>
+              </figure>
+            ))}
         </div>
       </section>
     </>

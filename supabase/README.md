@@ -63,15 +63,29 @@ Run once in SQL Editor:
 2. [`migrations/youtube_videos.sql`](./migrations/youtube_videos.sql) — YouTube video CMS table
 3. [`migrations/youtube_videos_category.sql`](./migrations/youtube_videos_category.sql) — `promo` / `reference` category
 4. [`migrations/services.sql`](./migrations/services.sql) — patient services CMS (Medical hub)
-5. [`migrations/hero_marquee.sql`](./migrations/hero_marquee.sql) — homepage hero marquee text (EN/BN)
-6. [`migrations/site_logo.sql`](./migrations/site_logo.sql) — navbar `logo_url` + `site-assets` storage bucket
+5. [`migrations/hero_cms.sql`](./migrations/hero_cms.sql) — homepage hero text + slides (Admin → Hero)
+6. [`migrations/hubs_cms.sql`](./migrations/hubs_cms.sql) — homepage hubs section + images (Admin → Hubs)
+7. [`migrations/about_page.sql`](./migrations/about_page.sql) — About page CMS (Admin → About)
+8. [`migrations/admissions_page.sql`](./migrations/admissions_page.sql) — Admissions page CMS (Admin → Admissions)
+9. [`migrations/doctors_hub_text.sql`](./migrations/doctors_hub_text.sql) — free-text doctor hub field
+10. [`migrations/hero_marquee.sql`](./migrations/hero_marquee.sql) — homepage hero marquee text (EN/BN)
+11. [`migrations/site_logo.sql`](./migrations/site_logo.sql) — navbar `logo_url` + `site-assets` storage bucket
 
 Optional older migrations (`user_bookings.sql`, `role_user_default.sql`) are superseded for booking auth; public booking no longer needs `user_id`.
 
 In **Admin → Requests**, search by phone / email / name.  
+In **Admin → Hero**, edit headline/CTAs and upload carousel images.  
+In **Admin → Hubs**, edit “Two hubs” title/cards and upload both images.  
+In **Admin → About**, edit mission / vision / values / timeline.  
+In **Admin → Admissions**, edit who / steps / documents / CTA.  
+In **Admin → Packages**, manage health packages + includes list.  
+In **Admin → Gallery**, upload gallery photos.  
+In **Admin → Activities**, manage activity cards (+ optional images).  
 In **Admin → Videos**, pick category (**Promo video** / **Reference video**) + paste YouTube or Cloudinary link → homepage shows two sections.  
 In **Admin → Services**, manage Medical hub services (name, summary, optional link path).  
 In **Admin → FAQs**, manage FAQ Q&A.
+
+Also run [`migrations/activities.sql`](./migrations/activities.sql) for the Activities table + seed.
 
 ## 5. Verify from app
 

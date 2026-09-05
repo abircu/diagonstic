@@ -113,11 +113,12 @@ export function AdminDoctorsPage() {
           </label>
           <label>
             Hub
-            <select value={form.hub} onChange={(e) => setForm({ ...form, hub: e.target.value as DoctorInput["hub"] })}>
-              <option value="medical">medical</option>
-              <option value="autism">autism</option>
-              <option value="both">both</option>
-            </select>
+            <input
+              value={form.hub}
+              onChange={(e) => setForm({ ...form, hub: e.target.value })}
+              placeholder="e.g. medical, autism, both"
+              required
+            />
           </label>
         </div>
         <div className="row-2">

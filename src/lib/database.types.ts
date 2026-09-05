@@ -41,6 +41,20 @@ export type Database = {
           social: Json;
           marquee_text: Localized;
           logo_url: string | null;
+          hero_headline: Localized;
+          hero_sub: Localized;
+          hero_cta_primary: Localized;
+          hero_cta_secondary: Localized;
+          hubs_title: Localized;
+          hubs_sub: Localized;
+          hub_medical_title: Localized;
+          hub_medical_text: Localized;
+          hub_medical_image: string | null;
+          hub_medical_link: string;
+          hub_autism_title: Localized;
+          hub_autism_text: Localized;
+          hub_autism_image: string | null;
+          hub_autism_link: string;
           updated_at: string;
         };
         Insert: Partial<Database["public"]["Tables"]["site_settings"]["Row"]> & { id?: number };
@@ -76,7 +90,7 @@ export type Database = {
           name: Localized;
           title: Localized;
           department_slug: string | null;
-          hub: "medical" | "autism" | "both";
+          hub: string;
           bio: Localized;
           schedule: Localized;
           photo_url: string | null;
@@ -89,7 +103,7 @@ export type Database = {
           name: Localized;
           title: Localized;
           department_slug?: string | null;
-          hub: "medical" | "autism" | "both";
+          hub: string;
           bio: Localized;
           schedule: Localized;
           photo_url?: string | null;
@@ -290,6 +304,25 @@ export type Database = {
         };
         Update: Partial<Database["public"]["Tables"]["gallery_items"]["Insert"]>;
       };
+      activities: {
+        Row: {
+          id: string;
+          title: Localized;
+          image_url: string | null;
+          sort_order: number;
+          published: boolean;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          title: Localized;
+          image_url?: string | null;
+          sort_order?: number;
+          published?: boolean;
+          created_at?: string;
+        };
+        Update: Partial<Database["public"]["Tables"]["activities"]["Insert"]>;
+      };
       youtube_videos: {
         Row: {
           id: string;
@@ -429,6 +462,42 @@ export type Database = {
           status?: string;
         };
         Update: Partial<Database["public"]["Tables"]["ambulance_requests"]["Insert"]>;
+      };
+      about_page: {
+        Row: {
+          id: number;
+          title: Localized;
+          subtitle: Localized;
+          mission_title: Localized;
+          mission: Localized;
+          vision_title: Localized;
+          vision: Localized;
+          values_title: Localized;
+          values_body: Localized;
+          timeline_title: Localized;
+          timeline: Json;
+          updated_at: string;
+        };
+        Insert: Partial<Database["public"]["Tables"]["about_page"]["Row"]> & { id?: number };
+        Update: Partial<Database["public"]["Tables"]["about_page"]["Insert"]>;
+      };
+      admissions_page: {
+        Row: {
+          id: number;
+          title: Localized;
+          subtitle: Localized;
+          who_title: Localized;
+          who_body: Localized;
+          steps_title: Localized;
+          steps: Json;
+          docs_title: Localized;
+          docs: Json;
+          cta_label: Localized;
+          cta_link: string;
+          updated_at: string;
+        };
+        Insert: Partial<Database["public"]["Tables"]["admissions_page"]["Row"]> & { id?: number };
+        Update: Partial<Database["public"]["Tables"]["admissions_page"]["Insert"]>;
       };
     };
   };

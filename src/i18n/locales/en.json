@@ -30,8 +30,13 @@
     "taglineSmall": "Physiotherapy & Autism Care"
   },
   "home": {
-    "headline": "Care that grows with every patient and every child",
+    "headline": "Care that grows with every patient and every special child",
     "sub": "Hospital medicine and autism therapy under one coordinated campus.",
+    "heroDeptsLabel": "Therapy departments",
+    "deptPt": "Physiotherapy",
+    "deptOt": "Autism Therapy",
+    "deptSlt": "Speech and Language Therapy",
+    "deptNt": "Nutrition Therapy",
     "ctaAppoint": "Book Doctor Appointment",
     "ctaAssess": "Book Child Assessment",
     "hubsTitle": "Two hubs. One care pathway.",

@@ -89,6 +89,44 @@
   padding-inline: 0.25rem;
 }
 
+.hero-depts {
+  list-style: none;
+  margin: 0 auto var(--space-5);
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.45rem;
+  max-width: 40rem;
+}
+
+.hero-depts li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(0, 0, 0, 0.28);
+  color: rgba(255, 255, 255, 0.95);
+  font-size: clamp(0.72rem, 2.8vw, 0.84rem);
+  font-weight: 600;
+  line-height: 1.25;
+  backdrop-filter: blur(6px);
+}
+
+.hero-dept-code {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.7rem;
+  padding: 0.12rem 0.28rem;
+  border-radius: 0.25rem;
+  background: rgba(255, 255, 255, 0.18);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
 .home-hero-copy .btn-row {
   justify-content: center;
 }

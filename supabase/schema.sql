@@ -30,6 +30,20 @@ create table if not exists public.site_settings (
   social jsonb not null default '{}',
   marquee_text jsonb not null default '{"en":"","bn":""}',
   logo_url text,
+  hero_headline jsonb not null default '{"en":"","bn":""}',
+  hero_sub jsonb not null default '{"en":"","bn":""}',
+  hero_cta_primary jsonb not null default '{"en":"","bn":""}',
+  hero_cta_secondary jsonb not null default '{"en":"","bn":""}',
+  hubs_title jsonb not null default '{"en":"","bn":""}',
+  hubs_sub jsonb not null default '{"en":"","bn":""}',
+  hub_medical_title jsonb not null default '{"en":"","bn":""}',
+  hub_medical_text jsonb not null default '{"en":"","bn":""}',
+  hub_medical_image text,
+  hub_medical_link text not null default '/medical',
+  hub_autism_title jsonb not null default '{"en":"","bn":""}',
+  hub_autism_text jsonb not null default '{"en":"","bn":""}',
+  hub_autism_image text,
+  hub_autism_link text not null default '/autism',
   updated_at timestamptz not null default now()
 );
 
@@ -51,7 +65,7 @@ create table if not exists public.doctors (
   name jsonb not null,
   title jsonb not null,
   department_slug text references public.departments (slug) on delete set null,
-  hub text not null check (hub in ('medical', 'autism', 'both')),
+  hub text not null,
   bio jsonb not null,
   schedule jsonb not null,
   photo_url text,
@@ -127,6 +141,36 @@ create table if not exists public.faqs (
   published boolean not null default true
 );
 
+create table if not exists public.about_page (
+  id int primary key default 1 check (id = 1),
+  title jsonb not null default '{"en":"","bn":""}',
+  subtitle jsonb not null default '{"en":"","bn":""}',
+  mission_title jsonb not null default '{"en":"","bn":""}',
+  mission jsonb not null default '{"en":"","bn":""}',
+  vision_title jsonb not null default '{"en":"","bn":""}',
+  vision jsonb not null default '{"en":"","bn":""}',
+  values_title jsonb not null default '{"en":"","bn":""}',
+  values_body jsonb not null default '{"en":"","bn":""}',
+  timeline_title jsonb not null default '{"en":"","bn":""}',
+  timeline jsonb not null default '[]'::jsonb,
+  updated_at timestamptz not null default now()
+);
+
+create table if not exists public.admissions_page (
+  id int primary key default 1 check (id = 1),
+  title jsonb not null default '{"en":"","bn":""}',
+  subtitle jsonb not null default '{"en":"","bn":""}',
+  who_title jsonb not null default '{"en":"","bn":""}',
+  who_body jsonb not null default '{"en":"","bn":""}',
+  steps_title jsonb not null default '{"en":"","bn":""}',
+  steps jsonb not null default '[]'::jsonb,
+  docs_title jsonb not null default '{"en":"","bn":""}',
+  docs jsonb not null default '[]'::jsonb,
+  cta_label jsonb not null default '{"en":"","bn":""}',
+  cta_link text not null default '/assessment',
+  updated_at timestamptz not null default now()
+);
+
 create table if not exists public.services (
   id uuid primary key default gen_random_uuid(),
   slug text not null unique,
@@ -153,6 +197,15 @@ create table if not exists public.gallery_items (
   image_url text,
   sort_order int not null default 0,
   published boolean not null default true
+);
+
+create table if not exists public.activities (
+  id uuid primary key default gen_random_uuid(),
+  title jsonb not null default '{"en":"","bn":""}',
+  image_url text,
+  sort_order int not null default 0,
+  published boolean not null default true,
+  created_at timestamptz not null default now()
 );
 
 create table if not exists public.youtube_videos (
@@ -269,9 +322,12 @@ alter table public.specialties enable row level security;
 alter table public.diagnostics enable row level security;
 alter table public.packages enable row level security;
 alter table public.faqs enable row level security;
+alter table public.about_page enable row level security;
+alter table public.admissions_page enable row level security;
 alter table public.services enable row level security;
 alter table public.testimonials enable row level security;
 alter table public.gallery_items enable row level security;
+alter table public.activities enable row level security;
 alter table public.youtube_videos enable row level security;
 alter table public.sliders enable row level security;
 alter table public.stats enable row level security;
@@ -295,9 +351,12 @@ create policy "specialties_public_read" on public.specialties for select using (
 create policy "diagnostics_public_read" on public.diagnostics for select using (published = true or public.is_admin());
 create policy "packages_public_read" on public.packages for select using (published = true or public.is_admin());
 create policy "faqs_public_read" on public.faqs for select using (published = true or public.is_admin());
+create policy "about_public_read" on public.about_page for select using (true);
+create policy "admissions_public_read" on public.admissions_page for select using (true);
 create policy "services_public_read" on public.services for select using (published = true or public.is_admin());
 create policy "testimonials_public_read" on public.testimonials for select using (published = true or public.is_admin());
 create policy "gallery_public_read" on public.gallery_items for select using (published = true or public.is_admin());
+create policy "activities_public_read" on public.activities for select using (published = true or public.is_admin());
 create policy "youtube_public_read" on public.youtube_videos for select using (published = true or public.is_admin());
 create policy "sliders_public_read" on public.sliders for select using (published = true or public.is_admin());
 create policy "stats_public_read" on public.stats for select using (published = true or public.is_admin());
@@ -312,9 +371,12 @@ create policy "specialties_admin_write" on public.specialties for all using (pub
 create policy "diagnostics_admin_write" on public.diagnostics for all using (public.is_admin()) with check (public.is_admin());
 create policy "packages_admin_write" on public.packages for all using (public.is_admin()) with check (public.is_admin());
 create policy "faqs_admin_write" on public.faqs for all using (public.is_admin()) with check (public.is_admin());
+create policy "about_admin_write" on public.about_page for all using (public.is_admin()) with check (public.is_admin());
+create policy "admissions_admin_write" on public.admissions_page for all using (public.is_admin()) with check (public.is_admin());
 create policy "services_admin_write" on public.services for all using (public.is_admin()) with check (public.is_admin());
 create policy "testimonials_admin_write" on public.testimonials for all using (public.is_admin()) with check (public.is_admin());
 create policy "gallery_admin_write" on public.gallery_items for all using (public.is_admin()) with check (public.is_admin());
+create policy "activities_admin_write" on public.activities for all using (public.is_admin()) with check (public.is_admin());
 create policy "youtube_admin_write" on public.youtube_videos for all using (public.is_admin()) with check (public.is_admin());
 create policy "sliders_admin_write" on public.sliders for all using (public.is_admin()) with check (public.is_admin());
 create policy "stats_admin_write" on public.stats for all using (public.is_admin()) with check (public.is_admin());

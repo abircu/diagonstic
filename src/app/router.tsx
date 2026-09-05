@@ -36,6 +36,13 @@ import { AdminProgramsPage } from "../admin/AdminProgramsPage";
 import { AdminFaqsPage } from "../admin/AdminFaqsPage";
 import { AdminServicesPage } from "../admin/AdminServicesPage";
 import { AdminVideosPage } from "../admin/AdminVideosPage";
+import { AdminHeroPage } from "../admin/AdminHeroPage";
+import { AdminHubsPage } from "../admin/AdminHubsPage";
+import { AdminAboutPage } from "../admin/AdminAboutPage";
+import { AdminAdmissionsPage } from "../admin/AdminAdmissionsPage";
+import { AdminPackagesPage } from "../admin/AdminPackagesPage";
+import { AdminGalleryPage } from "../admin/AdminGalleryPage";
+import { AdminActivitiesPage } from "../admin/AdminActivitiesPage";
 import { AdminSettingsPage } from "../admin/AdminSettingsPage";
 import { VideosPage } from "../pages/VideosPage";
 
@@ -51,8 +58,15 @@ export function AppRouter() {
           <Route path="departments" element={<AdminDepartmentsPage />} />
           <Route path="therapies" element={<AdminTherapiesPage />} />
           <Route path="programs" element={<AdminProgramsPage />} />
+          <Route path="hero" element={<AdminHeroPage />} />
+          <Route path="hubs" element={<AdminHubsPage />} />
+          <Route path="about" element={<AdminAboutPage />} />
+          <Route path="admissions" element={<AdminAdmissionsPage />} />
           <Route path="faqs" element={<AdminFaqsPage />} />
           <Route path="services" element={<AdminServicesPage />} />
+          <Route path="packages" element={<AdminPackagesPage />} />
+          <Route path="gallery" element={<AdminGalleryPage />} />
+          <Route path="activities" element={<AdminActivitiesPage />} />
           <Route path="videos" element={<AdminVideosPage />} />
           <Route path="settings" element={<AdminSettingsPage />} />
           <Route path="*" element={<p className="admin-page">Admin page not found.</p>} />

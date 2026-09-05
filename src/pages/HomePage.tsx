@@ -11,12 +11,21 @@ import { orgJsonLd } from "../seo/jsonLd";
 import { media } from "../assets/media";
 import { useAsyncData } from "../hooks/useAsyncData";
 import { useSiteSettings } from "../hooks/useSiteSettings";
-import { asLocalized, fetchSpecialties, fetchStats, fetchTherapies, fetchYoutubeVideos } from "../services/content";
+import { asLocalized, fetchSpecialties, fetchStats, fetchSliders, fetchTherapies, fetchYoutubeVideos } from "../services/content";
 import { langPath, localized, useLang } from "../hooks/useLang";
 import "./Home.css";
 import "./Videos.css";
 
 const specialtyImages = [media.diagnostic.one, media.diagnostic.two, media.diagnostic.three];
+
+const fallbackHeroSlides = [
+  { id: "h1", image: media.diagnostic.one },
+  { id: "h2", image: media.school.one },
+  { id: "h3", image: media.diagnostic.two },
+  { id: "h4", image: media.school.two },
+  { id: "h5", image: media.diagnostic.three },
+  { id: "h6", image: media.diagnostic.four },
+];
 
 export function HomePage() {
   const { t } = useTranslation();
@@ -27,19 +36,24 @@ export function HomePage() {
   const { data: specialties, loading: specLoading } = useAsyncData(() => fetchSpecialties(), []);
   const { data: therapies, loading: therapyLoading } = useAsyncData(() => fetchTherapies(), []);
   const { data: videos, loading: videosLoading } = useAsyncData(() => fetchYoutubeVideos(), []);
+  const { data: sliders } = useAsyncData(() => fetchSliders(), []);
 
   const promoVideos = filterVideosByCategory(videos, "promo");
   const referenceVideos = filterVideosByCategory(videos, "reference");
   const featuredTherapies = (therapies ?? []).filter((x) => x.featured).slice(0, 3);
 
-  const heroSlides = [
-    { id: "h1", image: media.diagnostic.one },
-    { id: "h2", image: media.school.one },
-    { id: "h3", image: media.diagnostic.two },
-    { id: "h4", image: media.school.two },
-    { id: "h5", image: media.diagnostic.three },
-    { id: "h6", image: media.diagnostic.four },
-  ];
+  const heroSlides =
+    (sliders ?? []).length > 0
+      ? (sliders ?? []).map((s) => ({
+          id: s.id,
+          image: s.image_url,
+        }))
+      : fallbackHeroSlides;
+
+  const headline = (localized(site.heroHeadline, lang) || t("home.headline")).trim();
+  const sub = (localized(site.heroSub, lang) || t("home.sub")).trim();
+  const ctaAppoint = (localized(site.heroCtaPrimary, lang) || t("home.ctaAppoint")).trim();
+  const ctaAssess = (localized(site.heroCtaSecondary, lang) || t("home.ctaAssess")).trim();
 
   const showcaseSlides = [
     { id: "s1", image: media.diagnostic.one, title: t("nav.diagnostics") },
@@ -71,14 +85,32 @@ export function HomePage() {
             <div className="container home-hero-layout">
               <div className="home-hero-inner home-hero-copy">
                 <p className="home-brand">{site.brand || t("brand.name")}</p>
-                <h1>{t("home.headline")}</h1>
-                <p className="home-sub">{t("home.sub")}</p>
+                <h1>{headline}</h1>
+                <p className="home-sub">{sub}</p>
+                <ul className="hero-depts" aria-label={t("home.heroDeptsLabel")}>
+                  <li>
+                    <span className="hero-dept-code">PT</span>
+                    <span>{t("home.deptPt")}</span>
+                  </li>
+                  <li>
+                    <span className="hero-dept-code">AT</span>
+                    <span>{t("home.deptOt")}</span>
+                  </li>
+                  <li>
+                    <span className="hero-dept-code">SLT</span>
+                    <span>{t("home.deptSlt")}</span>
+                  </li>
+                  <li>
+                    <span className="hero-dept-code">NT</span>
+                    <span>{t("home.deptNt")}</span>
+                  </li>
+                </ul>
                 <div className="btn-row">
                   <Link className="btn btn-primary" to={link("/appointment")}>
-                    {t("home.ctaAppoint")}
+                    {ctaAppoint}
                   </Link>
                   <Link className="btn btn-ghost" to={link("/assessment")}>
-                    {t("home.ctaAssess")}
+                    {ctaAssess}
                   </Link>
                 </div>
               </div>
@@ -137,30 +169,30 @@ export function HomePage() {
         <section className="section">
           <div className="container">
             <div className="section-head">
-              <h2>{t("home.hubsTitle")}</h2>
-              <p>{t("home.hubsSub")}</p>
+              <h2>{(localized(site.hubsTitle, lang) || t("home.hubsTitle")).trim()}</h2>
+              <p>{(localized(site.hubsSub, lang) || t("home.hubsSub")).trim()}</p>
             </div>
             <div className="hub-strip stagger">
               <Reveal className="reveal-scale" delay={0}>
-                <Link to={link("/medical")} className="hub-panel medical">
+                <Link to={link(site.hubMedicalLink || "/medical")} className="hub-panel medical">
                   <div className="hub-panel-media">
-                    <img src={media.diagnostic.four} alt="" loading="lazy" />
+                    <img src={site.hubMedicalImage || media.diagnostic.four} alt="" loading="lazy" />
                   </div>
                   <div className="hub-panel-body">
-                    <h3>{t("home.medicalHub")}</h3>
-                    <p>{t("home.medicalHubText")}</p>
+                    <h3>{(localized(site.hubMedicalTitle, lang) || t("home.medicalHub")).trim()}</h3>
+                    <p>{(localized(site.hubMedicalText, lang) || t("home.medicalHubText")).trim()}</p>
                     <span>{t("common.readMore")} →</span>
                   </div>
                 </Link>
               </Reveal>
               <Reveal className="reveal-scale" delay={120}>
-                <Link to={link("/autism")} className="hub-panel autism">
+                <Link to={link(site.hubAutismLink || "/autism")} className="hub-panel autism">
                   <div className="hub-panel-media">
-                    <img src={media.school.one} alt="" loading="lazy" />
+                    <img src={site.hubAutismImage || media.school.one} alt="" loading="lazy" />
                   </div>
                   <div className="hub-panel-body">
-                    <h3>{t("home.autismHub")}</h3>
-                    <p>{t("home.autismHubText")}</p>
+                    <h3>{(localized(site.hubAutismTitle, lang) || t("home.autismHub")).trim()}</h3>
+                    <p>{(localized(site.hubAutismText, lang) || t("home.autismHubText")).trim()}</p>
                     <span>{t("common.readMore")} →</span>
                   </div>
                 </Link>

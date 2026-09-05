@@ -1,48 +1,78 @@
 import { useTranslation } from "react-i18next";
 import { PageHero } from "../components/PageHero";
 import { Seo } from "../seo/Seo";
-import { useLang } from "../hooks/useLang";
+import { useAsyncData } from "../hooks/useAsyncData";
+import { asLocalized, fetchAboutPage } from "../services/content";
+import { localized, useLang } from "../hooks/useLang";
+
+type TimelineItem = { year?: string; text?: unknown };
 
 export function AboutPage() {
   const { t } = useTranslation();
   const lang = useLang();
+  const { data, loading } = useAsyncData(() => fetchAboutPage(), []);
+
+  const title = (data ? localized(asLocalized(data.title), lang) : "") || t("about.title");
+  const sub = (data ? localized(asLocalized(data.subtitle), lang) : "") || t("about.sub");
+  const missionTitle = (data ? localized(asLocalized(data.mission_title), lang) : "") || t("about.missionTitle");
+  const mission = (data ? localized(asLocalized(data.mission), lang) : "") || t("about.mission");
+  const visionTitle = (data ? localized(asLocalized(data.vision_title), lang) : "") || t("about.visionTitle");
+  const vision = (data ? localized(asLocalized(data.vision), lang) : "") || t("about.vision");
+  const valuesTitle = (data ? localized(asLocalized(data.values_title), lang) : "") || t("about.valuesTitle");
+  const valuesBody = (data ? localized(asLocalized(data.values_body), lang) : "") || t("about.values");
+  const timelineTitle = (data ? localized(asLocalized(data.timeline_title), lang) : "") || t("about.timelineTitle");
+
+  const timeline: TimelineItem[] = Array.isArray(data?.timeline) ? (data!.timeline as TimelineItem[]) : [];
+  const fallbackTimeline = [
+    { year: "2018", text: t("about.t1") },
+    { year: "2020", text: t("about.t2") },
+    { year: "2022", text: t("about.t3") },
+    { year: "2024+", text: t("about.t4") },
+  ];
 
   return (
     <>
-      <Seo title={`${t("about.title")} | ${t("brand.short")}`} description={t("about.sub")} lang={lang} path="/about" />
-      <PageHero title={t("about.title")} subtitle={t("about.sub")} crumbs={[{ label: t("nav.about") }]} />
+      <Seo title={`${title} | ${t("brand.short")}`} description={sub} lang={lang} path="/about" />
+      <PageHero title={title} subtitle={sub} crumbs={[{ label: t("nav.about") }]} />
       <section className="section">
-        <div className="container card-grid cols-3">
-          <article className="surface-card">
-            <h2>{t("about.missionTitle")}</h2>
-            <p>{t("about.mission")}</p>
-          </article>
-          <article className="surface-card">
-            <h2>{t("about.visionTitle")}</h2>
-            <p>{t("about.vision")}</p>
-          </article>
-          <article className="surface-card">
-            <h2>{t("about.valuesTitle")}</h2>
-            <p>{t("about.values")}</p>
-          </article>
-        </div>
-        <div className="container" style={{ marginTop: "var(--space-7)", maxWidth: "44rem" }}>
-          <h2>{t("about.timelineTitle")}</h2>
-          <ol>
-            <li>
-              <strong>2018</strong> — {t("about.t1")}
-            </li>
-            <li>
-              <strong>2020</strong> — {t("about.t2")}
-            </li>
-            <li>
-              <strong>2022</strong> — {t("about.t3")}
-            </li>
-            <li>
-              <strong>2024+</strong> — {t("about.t4")}
-            </li>
-          </ol>
-        </div>
+        {loading ? (
+          <div className="container">
+            <p className="empty-note">{t("common.loading")}</p>
+          </div>
+        ) : (
+          <>
+            <div className="container card-grid cols-3">
+              <article className="surface-card">
+                <h2>{missionTitle}</h2>
+                <p>{mission}</p>
+              </article>
+              <article className="surface-card">
+                <h2>{visionTitle}</h2>
+                <p>{vision}</p>
+              </article>
+              <article className="surface-card">
+                <h2>{valuesTitle}</h2>
+                <p>{valuesBody}</p>
+              </article>
+            </div>
+            <div className="container" style={{ marginTop: "var(--space-7)", maxWidth: "44rem" }}>
+              <h2>{timelineTitle}</h2>
+              <ol>
+                {timeline.length > 0
+                  ? timeline.map((item, i) => (
+                      <li key={`${item.year}-${i}`}>
+                        <strong>{item.year || "—"}</strong> — {localized(asLocalized(item.text), lang)}
+                      </li>
+                    ))
+                  : fallbackTimeline.map((item) => (
+                      <li key={item.year}>
+                        <strong>{item.year}</strong> — {item.text}
+                      </li>
+                    ))}
+              </ol>
+            </div>
+          </>
+        )}
       </section>
     </>
   );

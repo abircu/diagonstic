@@ -21,6 +21,20 @@ export type SiteContact = {
   social: { facebook?: string; youtube?: string };
   marquee: Localized;
   logoUrl: string | null;
+  heroHeadline: Localized;
+  heroSub: Localized;
+  heroCtaPrimary: Localized;
+  heroCtaSecondary: Localized;
+  hubsTitle: Localized;
+  hubsSub: Localized;
+  hubMedicalTitle: Localized;
+  hubMedicalText: Localized;
+  hubMedicalImage: string | null;
+  hubMedicalLink: string;
+  hubAutismTitle: Localized;
+  hubAutismText: Localized;
+  hubAutismImage: string | null;
+  hubAutismLink: string;
   url: string;
 };
 
@@ -55,9 +69,25 @@ function fromRow(row: SiteSettingsRow): SiteContact {
       return fromSocial;
     })(),
     logoUrl: row.logo_url?.trim() || (typeof social.logo === "string" ? social.logo : null) || null,
+    heroHeadline: asLocalized(row.hero_headline),
+    heroSub: asLocalized(row.hero_sub),
+    heroCtaPrimary: asLocalized(row.hero_cta_primary),
+    heroCtaSecondary: asLocalized(row.hero_cta_secondary),
+    hubsTitle: asLocalized(row.hubs_title),
+    hubsSub: asLocalized(row.hubs_sub),
+    hubMedicalTitle: asLocalized(row.hub_medical_title),
+    hubMedicalText: asLocalized(row.hub_medical_text),
+    hubMedicalImage: row.hub_medical_image?.trim() || null,
+    hubMedicalLink: row.hub_medical_link?.trim() || "/medical",
+    hubAutismTitle: asLocalized(row.hub_autism_title),
+    hubAutismText: asLocalized(row.hub_autism_text),
+    hubAutismImage: row.hub_autism_image?.trim() || null,
+    hubAutismLink: row.hub_autism_link?.trim() || "/autism",
     url: siteConfig.url,
   };
 }
+
+const emptyLoc = (): Localized => ({ en: "", bn: "" });
 
 const fallback: SiteContact = {
   brand: siteConfig.brand,
@@ -68,8 +98,22 @@ const fallback: SiteContact = {
   address: { ...siteConfig.address },
   hours: { ...siteConfig.hours },
   social: { ...siteConfig.social },
-  marquee: { en: "", bn: "" },
+  marquee: emptyLoc(),
   logoUrl: null,
+  heroHeadline: emptyLoc(),
+  heroSub: emptyLoc(),
+  heroCtaPrimary: emptyLoc(),
+  heroCtaSecondary: emptyLoc(),
+  hubsTitle: emptyLoc(),
+  hubsSub: emptyLoc(),
+  hubMedicalTitle: emptyLoc(),
+  hubMedicalText: emptyLoc(),
+  hubMedicalImage: null,
+  hubMedicalLink: "/medical",
+  hubAutismTitle: emptyLoc(),
+  hubAutismText: emptyLoc(),
+  hubAutismImage: null,
+  hubAutismLink: "/autism",
   url: siteConfig.url,
 };
 

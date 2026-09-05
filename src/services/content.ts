@@ -14,6 +14,11 @@ export type PackageRow = Database["public"]["Tables"]["packages"]["Row"];
 export type StatRow = Database["public"]["Tables"]["stats"]["Row"];
 export type SiteSettingsRow = Database["public"]["Tables"]["site_settings"]["Row"];
 export type YoutubeVideoRow = Database["public"]["Tables"]["youtube_videos"]["Row"];
+export type SliderRow = Database["public"]["Tables"]["sliders"]["Row"];
+export type AboutPageRow = Database["public"]["Tables"]["about_page"]["Row"];
+export type AdmissionsPageRow = Database["public"]["Tables"]["admissions_page"]["Row"];
+export type GalleryItemRow = Database["public"]["Tables"]["gallery_items"]["Row"];
+export type ActivityRow = Database["public"]["Tables"]["activities"]["Row"];
 
 async function listPublished<T>(table: string) {
   const { data, error } = await supabase
@@ -117,10 +122,34 @@ export async function fetchYoutubeVideos() {
   return listPublished<YoutubeVideoRow>("youtube_videos");
 }
 
+export async function fetchSliders() {
+  return listPublished<SliderRow>("sliders");
+}
+
 export async function fetchSiteSettings() {
   const { data, error } = await supabase.from("site_settings").select("*").eq("id", 1).maybeSingle();
   if (error) throw error;
   return data as SiteSettingsRow | null;
+}
+
+export async function fetchAboutPage() {
+  const { data, error } = await supabase.from("about_page").select("*").eq("id", 1).maybeSingle();
+  if (error) throw error;
+  return data as AboutPageRow | null;
+}
+
+export async function fetchAdmissionsPage() {
+  const { data, error } = await supabase.from("admissions_page").select("*").eq("id", 1).maybeSingle();
+  if (error) throw error;
+  return data as AdmissionsPageRow | null;
+}
+
+export async function fetchGalleryItems() {
+  return listPublished<GalleryItemRow>("gallery_items");
+}
+
+export async function fetchActivities() {
+  return listPublished<ActivityRow>("activities");
 }
 
 export async function submitAppointment(input: {
